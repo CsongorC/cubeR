@@ -3,7 +3,6 @@ import './App.css';
 import Sketch from './Sketch'
 import * as scanner from './scanner';
 import * as solveCube from './solveCube'
-import { Link } from 'react-router-dom';
 
 class SolveCubeComponent extends React.Component {
   render() {

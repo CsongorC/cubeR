@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as P5 from "p5";
+import * as P5 from "./libraries/p5";
 
 const P5_SENTINEL = {
     error: "p5 used outside the dynamic scope of an exported function."

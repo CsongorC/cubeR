@@ -507,7 +507,7 @@ export function draw() {
   
 }
 
-function mousePressed() {
+export function mousePressed() {
   if(p.mouseX >= 1400 && p.mouseX <= 1425 && p.mouseY >= 650 && p.mouseY <= 675 ||
     p.mouseX >= 1350 && p.mouseX <= 1375 && p.mouseY >= 650 && p.mouseY <= 675 ||
     p.mouseX >= 1300 && p.mouseX <= 1325 && p.mouseY >= 650 && p.mouseY <= 675 ||

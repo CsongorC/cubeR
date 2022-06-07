@@ -1,19 +1,15 @@
 import { p } from './Sketch'
 import cubie from './cubie'
+import cubeColors from './cubeColors';
 
 let video;
 
-let r = 0;
-let g = 0;
-let b = 0;
 let hueAngle = 0;
 let hues = [];
 let colorName = "Unknown"
 let chosenColor = "#081b2a";
 
 let faceOrder = "Top face";
-
-let cubeColors = [];
 
 let cubies = [];
 
@@ -35,6 +31,10 @@ let buttonClear;
 
 let currentFace = 0;
 
+export var isVisible = true;
+
+let cubieColors = new cubeColors();
+
 export function setup() {
   p.createCanvas(p.displayWidth, p.displayHeight);
 
@@ -42,15 +42,10 @@ export function setup() {
   video = p.createCapture(p.VIDEO);
   video.size(560, 480);
   video.hide();
-  
 
   buttonSaveFace = p.createButton('SAVE');
   buttonSaveFace.mousePressed(saveColors);
   buttonSaveFace.position(880, 600);
-
-  buttonAnimate = p.createButton('3D ANIMATION');
-  //buttonAnimate.mousePressed(goToAnimation);
-  buttonAnimate.position(1230, 200);
 
   buttonClear = p.createButton('CLEAR');
   buttonClear.mousePressed(clearCube);
@@ -81,41 +76,10 @@ export function setup() {
                      [255,255,255], [255,255,255], [255,255,255]];
 }
 
-function windowResized() {
-  p.resizeCanvas(p.windowWidth, p.windowHeight);
-}
-
-function processMoves(moves){
-  let processedMoves = ""
-  for (let i = 0; i < moves.length; i++) {
-    if(moves[i] == "l" || moves[i] == "r" || moves[i] == "f" || moves[i] == "d" || moves[i] == "u" || moves[i] == "b"){
-      if(moves[i] == "l"){
-        processedMoves = processedMoves + "L' ";
-      }
-      if(moves[i] == "r"){
-        processedMoves = processedMoves + "R' ";
-      }
-      if(moves[i] == "f"){
-        processedMoves = processedMoves + "F' ";
-      }
-      if(moves[i] == "d"){
-        processedMoves = processedMoves + "D' ";
-      }
-      if(moves[i] == "u"){
-        processedMoves = processedMoves + "U' ";
-      }
-      if(moves[i] == "b"){
-        processedMoves = processedMoves + "B' ";
-      }
-    }
-    else{
-      processedMoves = processedMoves + moves[i] + " ";
-    }
-  }
-  return processedMoves;
-}
-
 function clearCube(){
+
+  cubieColors.reset();
+
   topColors = [[255,255,255], [255,255,255], [255,255,255],
                [255,255,255], [255,255,255], [255,255,255],
                [255,255,255], [255,255,255], [255,255,255]];
@@ -144,9 +108,7 @@ function clearCube(){
   faceOrder = "Top face";
 }
 
-function saveColors(){
-  console.log(currentFace);
-
+function checkForErrorInFace(){
   if(cl1[0] != 112 && cl1[1] != 128 && cl1[2] != 144 &&
     cl2[0] != 112 && cl2[1] != 128 && cl2[2] != 144 &&
     cl3[0] != 112 && cl3[1] != 128 && cl3[2] != 144 &&
@@ -156,72 +118,192 @@ function saveColors(){
     cl7[0] != 112 && cl7[1] != 128 && cl7[2] != 144 &&
     cl8[0] != 112 && cl8[1] != 128 && cl8[2] != 144 &&
     cl9[0] != 112 && cl9[1] != 128 && cl9[2] != 144){
+      return true;
+    }
+    return false;
+}
+
+function saveColors(){
+  console.log(currentFace);
+
+  if(checkForErrorInFace()){
 
       if(currentFace == 0){
-        topColors[0] = [cl1[0], cl1[1], cl1[2]];
-        topColors[1] = [cl2[0], cl2[1], cl2[2]];
-        topColors[2] = [cl3[0], cl3[1], cl3[2]];
-        topColors[3] = [cl4[0], cl4[1], cl4[2]];
-        topColors[4] = [cl5[0], cl5[1], cl5[2]];
-        topColors[5] = [cl6[0], cl6[1], cl6[2]];
-        topColors[6] = [cl7[0], cl7[1], cl7[2]];
-        topColors[7] = [cl8[0], cl8[1], cl8[2]];
-        topColors[8] = [cl9[0], cl9[1], cl9[2]];
+
+        if(cubieColors.increaseCorner(cl1[0], cl1[1], cl1[2]) && cubieColors.increaseEdge(cl2[0], cl2[1], cl2[2]) && cubieColors.increaseCorner(cl3[0], cl3[1], cl3[2]) && 
+        cubieColors.increaseEdge(cl4[0], cl4[1], cl4[2]) && cubieColors.increaseCenter(cl5[0], cl5[1], cl5[2]) && cubieColors.increaseEdge(cl6[0], cl6[1], cl6[2]) && 
+        cubieColors.increaseCorner(cl7[0], cl7[1], cl7[2]) && cubieColors.increaseEdge(cl8[0], cl8[1], cl8[2]) && cubieColors.increaseCorner(cl9[0], cl9[1], cl9[2])){
+
+          cubieColors.doIncreaseCorner(cl1[0], cl1[1], cl1[2])
+          cubieColors.doIncreaseEdge(cl2[0], cl2[1], cl2[2])
+          cubieColors.doIncreaseCorner(cl3[0], cl3[1], cl3[2]) 
+          cubieColors.doIncreaseEdge(cl4[0], cl4[1], cl4[2])
+          cubieColors.doIncreaseCenter(cl5[0], cl5[1], cl5[2])
+          cubieColors.doIncreaseEdge(cl6[0], cl6[1], cl6[2]) 
+          cubieColors.doIncreaseCorner(cl7[0], cl7[1], cl7[2])
+          cubieColors.doIncreaseEdge(cl8[0], cl8[1], cl8[2]) 
+          cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2])
+
+          topColors[0] = [cl1[0], cl1[1], cl1[2]];
+          topColors[1] = [cl2[0], cl2[1], cl2[2]];
+          topColors[2] = [cl3[0], cl3[1], cl3[2]];
+          topColors[3] = [cl4[0], cl4[1], cl4[2]];
+          topColors[4] = [cl5[0], cl5[1], cl5[2]];
+          topColors[5] = [cl6[0], cl6[1], cl6[2]];
+          topColors[6] = [cl7[0], cl7[1], cl7[2]];
+          topColors[7] = [cl8[0], cl8[1], cl8[2]];
+          topColors[8] = [cl9[0], cl9[1], cl9[2]];
+        }
+        else{
+          alert("Cannot save cube, incorresct face!")
+        }
       }
       if(currentFace == 1){
-        frontColors[0] = [cl1[0], cl1[1], cl1[2]];
-        frontColors[1] = [cl2[0], cl2[1], cl2[2]];
-        frontColors[2] = [cl3[0], cl3[1], cl3[2]];
-        frontColors[3] = [cl4[0], cl4[1], cl4[2]];
-        frontColors[4] = [cl5[0], cl5[1], cl5[2]];
-        frontColors[5] = [cl6[0], cl6[1], cl6[2]];
-        frontColors[6] = [cl7[0], cl7[1], cl7[2]];
-        frontColors[7] = [cl8[0], cl8[1], cl8[2]];
-        frontColors[8] = [cl9[0], cl9[1], cl9[2]];
+
+        if(cubieColors.increaseCorner(cl1[0], cl1[1], cl1[2]) && cubieColors.increaseEdge(cl2[0], cl2[1], cl2[2]) && cubieColors.increaseCorner(cl3[0], cl3[1], cl3[2]) && 
+        cubieColors.increaseEdge(cl4[0], cl4[1], cl4[2]) && cubieColors.increaseCenter(cl5[0], cl5[1], cl5[2]) && cubieColors.increaseEdge(cl6[0], cl6[1], cl6[2]) && 
+        cubieColors.increaseCorner(cl7[0], cl7[1], cl7[2]) && cubieColors.increaseEdge(cl8[0], cl8[1], cl8[2]) && cubieColors.increaseCorner(cl9[0], cl9[1], cl9[2])){
+
+          cubieColors.doIncreaseCorner(cl1[0], cl1[1], cl1[2])
+          cubieColors.doIncreaseEdge(cl2[0], cl2[1], cl2[2])
+          cubieColors.doIncreaseCorner(cl3[0], cl3[1], cl3[2]) 
+          cubieColors.doIncreaseEdge(cl4[0], cl4[1], cl4[2])
+          cubieColors.doIncreaseCenter(cl5[0], cl5[1], cl5[2])
+          cubieColors.doIncreaseEdge(cl6[0], cl6[1], cl6[2]) 
+          cubieColors.doIncreaseCorner(cl7[0], cl7[1], cl7[2])
+          cubieColors.doIncreaseEdge(cl8[0], cl8[1], cl8[2]) 
+          cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2])
+
+          frontColors[0] = [cl1[0], cl1[1], cl1[2]];
+          frontColors[1] = [cl2[0], cl2[1], cl2[2]];
+          frontColors[2] = [cl3[0], cl3[1], cl3[2]];
+          frontColors[3] = [cl4[0], cl4[1], cl4[2]];
+          frontColors[4] = [cl5[0], cl5[1], cl5[2]];
+          frontColors[5] = [cl6[0], cl6[1], cl6[2]];
+          frontColors[6] = [cl7[0], cl7[1], cl7[2]];
+          frontColors[7] = [cl8[0], cl8[1], cl8[2]];
+          frontColors[8] = [cl9[0], cl9[1], cl9[2]];
+        }
+        else{
+          alert("Cannot save cube, incorresct face!")
+        }
       }
       if(currentFace == 2){
-        leftColors[0] = [cl1[0], cl1[1], cl1[2]];
-        leftColors[1] = [cl2[0], cl2[1], cl2[2]];
-        leftColors[2] = [cl3[0], cl3[1], cl3[2]];
-        leftColors[3] = [cl4[0], cl4[1], cl4[2]];
-        leftColors[4] = [cl5[0], cl5[1], cl5[2]];
-        leftColors[5] = [cl6[0], cl6[1], cl6[2]];
-        leftColors[6] = [cl7[0], cl7[1], cl7[2]];
-        leftColors[7] = [cl8[0], cl8[1], cl8[2]];
-        leftColors[8] = [cl9[0], cl9[1], cl9[2]];
+
+        if(cubieColors.increaseCorner(cl1[0], cl1[1], cl1[2]) && cubieColors.increaseEdge(cl2[0], cl2[1], cl2[2]) && cubieColors.increaseCorner(cl3[0], cl3[1], cl3[2]) && 
+        cubieColors.increaseEdge(cl4[0], cl4[1], cl4[2]) && cubieColors.increaseCenter(cl5[0], cl5[1], cl5[2]) && cubieColors.increaseEdge(cl6[0], cl6[1], cl6[2]) && 
+        cubieColors.increaseCorner(cl7[0], cl7[1], cl7[2]) && cubieColors.increaseEdge(cl8[0], cl8[1], cl8[2]) && cubieColors.increaseCorner(cl9[0], cl9[1], cl9[2])){
+
+          cubieColors.doIncreaseCorner(cl1[0], cl1[1], cl1[2])
+          cubieColors.doIncreaseEdge(cl2[0], cl2[1], cl2[2])
+          cubieColors.doIncreaseCorner(cl3[0], cl3[1], cl3[2]) 
+          cubieColors.doIncreaseEdge(cl4[0], cl4[1], cl4[2])
+          cubieColors.doIncreaseCenter(cl5[0], cl5[1], cl5[2])
+          cubieColors.doIncreaseEdge(cl6[0], cl6[1], cl6[2]) 
+          cubieColors.doIncreaseCorner(cl7[0], cl7[1], cl7[2])
+          cubieColors.doIncreaseEdge(cl8[0], cl8[1], cl8[2]) 
+          cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2])
+
+          leftColors[0] = [cl1[0], cl1[1], cl1[2]];
+          leftColors[1] = [cl2[0], cl2[1], cl2[2]];
+          leftColors[2] = [cl3[0], cl3[1], cl3[2]];
+          leftColors[3] = [cl4[0], cl4[1], cl4[2]];
+          leftColors[4] = [cl5[0], cl5[1], cl5[2]];
+          leftColors[5] = [cl6[0], cl6[1], cl6[2]];
+          leftColors[6] = [cl7[0], cl7[1], cl7[2]];
+          leftColors[7] = [cl8[0], cl8[1], cl8[2]];
+          leftColors[8] = [cl9[0], cl9[1], cl9[2]];
+        }
+        else{
+          alert("Cannot save cube, incorresct face!")
+        }
       }
       if(currentFace == 3){
-        rightColors[0] = [cl1[0], cl1[1], cl1[2]];
-        rightColors[1] = [cl2[0], cl2[1], cl2[2]];
-        rightColors[2] = [cl3[0], cl3[1], cl3[2]];
-        rightColors[3] = [cl4[0], cl4[1], cl4[2]];
-        rightColors[4] = [cl5[0], cl5[1], cl5[2]];
-        rightColors[5] = [cl6[0], cl6[1], cl6[2]];
-        rightColors[6] = [cl7[0], cl7[1], cl7[2]];
-        rightColors[7] = [cl8[0], cl8[1], cl8[2]];
-        rightColors[8] = [cl9[0], cl9[1], cl9[2]];
+        if(cubieColors.increaseCorner(cl1[0], cl1[1], cl1[2]) && cubieColors.increaseEdge(cl2[0], cl2[1], cl2[2]) && cubieColors.increaseCorner(cl3[0], cl3[1], cl3[2]) && 
+        cubieColors.increaseEdge(cl4[0], cl4[1], cl4[2]) && cubieColors.increaseCenter(cl5[0], cl5[1], cl5[2]) && cubieColors.increaseEdge(cl6[0], cl6[1], cl6[2]) && 
+        cubieColors.increaseCorner(cl7[0], cl7[1], cl7[2]) && cubieColors.increaseEdge(cl8[0], cl8[1], cl8[2]) && cubieColors.increaseCorner(cl9[0], cl9[1], cl9[2])){
+
+          cubieColors.doIncreaseCorner(cl1[0], cl1[1], cl1[2])
+          cubieColors.doIncreaseEdge(cl2[0], cl2[1], cl2[2])
+          cubieColors.doIncreaseCorner(cl3[0], cl3[1], cl3[2]) 
+          cubieColors.doIncreaseEdge(cl4[0], cl4[1], cl4[2])
+          cubieColors.doIncreaseCenter(cl5[0], cl5[1], cl5[2])
+          cubieColors.doIncreaseEdge(cl6[0], cl6[1], cl6[2]) 
+          cubieColors.doIncreaseCorner(cl7[0], cl7[1], cl7[2])
+          cubieColors.doIncreaseEdge(cl8[0], cl8[1], cl8[2]) 
+          cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2])
+
+          rightColors[0] = [cl1[0], cl1[1], cl1[2]];
+          rightColors[1] = [cl2[0], cl2[1], cl2[2]];
+          rightColors[2] = [cl3[0], cl3[1], cl3[2]];
+          rightColors[3] = [cl4[0], cl4[1], cl4[2]];
+          rightColors[4] = [cl5[0], cl5[1], cl5[2]];
+          rightColors[5] = [cl6[0], cl6[1], cl6[2]];
+          rightColors[6] = [cl7[0], cl7[1], cl7[2]];
+          rightColors[7] = [cl8[0], cl8[1], cl8[2]];
+          rightColors[8] = [cl9[0], cl9[1], cl9[2]];
+        }
+        else{
+          alert("Cannot save cube, incorresct face!")
+        }
       }
       if(currentFace == 4){
-        posteriorColors[0] = [cl1[0], cl1[1], cl1[2]];
-        posteriorColors[1] = [cl2[0], cl2[1], cl2[2]];
-        posteriorColors[2] = [cl3[0], cl3[1], cl3[2]];
-        posteriorColors[3] = [cl4[0], cl4[1], cl4[2]];
-        posteriorColors[4] = [cl5[0], cl5[1], cl5[2]];
-        posteriorColors[5] = [cl6[0], cl6[1], cl6[2]];
-        posteriorColors[6] = [cl7[0], cl7[1], cl7[2]];
-        posteriorColors[7] = [cl8[0], cl8[1], cl8[2]];
-        posteriorColors[8] = [cl9[0], cl9[1], cl9[2]];
+        if(cubieColors.increaseCorner(cl1[0], cl1[1], cl1[2]) && cubieColors.increaseEdge(cl2[0], cl2[1], cl2[2]) && cubieColors.increaseCorner(cl3[0], cl3[1], cl3[2]) && 
+        cubieColors.increaseEdge(cl4[0], cl4[1], cl4[2]) && cubieColors.increaseCenter(cl5[0], cl5[1], cl5[2]) && cubieColors.increaseEdge(cl6[0], cl6[1], cl6[2]) && 
+        cubieColors.increaseCorner(cl7[0], cl7[1], cl7[2]) && cubieColors.increaseEdge(cl8[0], cl8[1], cl8[2]) && cubieColors.increaseCorner(cl9[0], cl9[1], cl9[2])){
+
+          cubieColors.doIncreaseCorner(cl1[0], cl1[1], cl1[2])
+          cubieColors.doIncreaseEdge(cl2[0], cl2[1], cl2[2])
+          cubieColors.doIncreaseCorner(cl3[0], cl3[1], cl3[2]) 
+          cubieColors.doIncreaseEdge(cl4[0], cl4[1], cl4[2])
+          cubieColors.doIncreaseCenter(cl5[0], cl5[1], cl5[2])
+          cubieColors.doIncreaseEdge(cl6[0], cl6[1], cl6[2]) 
+          cubieColors.doIncreaseCorner(cl7[0], cl7[1], cl7[2])
+          cubieColors.doIncreaseEdge(cl8[0], cl8[1], cl8[2]) 
+          cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2])
+
+          posteriorColors[0] = [cl1[0], cl1[1], cl1[2]];
+          posteriorColors[1] = [cl2[0], cl2[1], cl2[2]];
+          posteriorColors[2] = [cl3[0], cl3[1], cl3[2]];
+          posteriorColors[3] = [cl4[0], cl4[1], cl4[2]];
+          posteriorColors[4] = [cl5[0], cl5[1], cl5[2]];
+          posteriorColors[5] = [cl6[0], cl6[1], cl6[2]];
+          posteriorColors[6] = [cl7[0], cl7[1], cl7[2]];
+          posteriorColors[7] = [cl8[0], cl8[1], cl8[2]];
+          posteriorColors[8] = [cl9[0], cl9[1], cl9[2]];
+        }
+        else{
+          alert("Cannot save cube, incorresct face!")
+        }
       }
       if(currentFace == 5){
-        bottomColors[0] = [cl1[0], cl1[1], cl1[2]];
-        bottomColors[1] = [cl2[0], cl2[1], cl2[2]];
-        bottomColors[2] = [cl3[0], cl3[1], cl3[2]];
-        bottomColors[3] = [cl4[0], cl4[1], cl4[2]];
-        bottomColors[4] = [cl5[0], cl5[1], cl5[2]];
-        bottomColors[5] = [cl6[0], cl6[1], cl6[2]];
-        bottomColors[6] = [cl7[0], cl7[1], cl7[2]];
-        bottomColors[7] = [cl8[0], cl8[1], cl8[2]];
-        bottomColors[8] = [cl9[0], cl9[1], cl9[2]];
+        if(cubieColors.increaseCorner(cl1[0], cl1[1], cl1[2]) && cubieColors.increaseEdge(cl2[0], cl2[1], cl2[2]) && cubieColors.increaseCorner(cl3[0], cl3[1], cl3[2]) && 
+        cubieColors.increaseEdge(cl4[0], cl4[1], cl4[2]) && cubieColors.increaseCenter(cl5[0], cl5[1], cl5[2]) && cubieColors.increaseEdge(cl6[0], cl6[1], cl6[2]) && 
+        cubieColors.increaseCorner(cl7[0], cl7[1], cl7[2]) && cubieColors.increaseEdge(cl8[0], cl8[1], cl8[2]) && cubieColors.increaseCorner(cl9[0], cl9[1], cl9[2])){
+
+          cubieColors.doIncreaseCorner(cl1[0], cl1[1], cl1[2])
+          cubieColors.doIncreaseEdge(cl2[0], cl2[1], cl2[2])
+          cubieColors.doIncreaseCorner(cl3[0], cl3[1], cl3[2]) 
+          cubieColors.doIncreaseEdge(cl4[0], cl4[1], cl4[2])
+          cubieColors.doIncreaseCenter(cl5[0], cl5[1], cl5[2])
+          cubieColors.doIncreaseEdge(cl6[0], cl6[1], cl6[2]) 
+          cubieColors.doIncreaseCorner(cl7[0], cl7[1], cl7[2])
+          cubieColors.doIncreaseEdge(cl8[0], cl8[1], cl8[2]) 
+          cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2])
+
+          bottomColors[0] = [cl1[0], cl1[1], cl1[2]];
+          bottomColors[1] = [cl2[0], cl2[1], cl2[2]];
+          bottomColors[2] = [cl3[0], cl3[1], cl3[2]];
+          bottomColors[3] = [cl4[0], cl4[1], cl4[2]];
+          bottomColors[4] = [cl5[0], cl5[1], cl5[2]];
+          bottomColors[5] = [cl6[0], cl6[1], cl6[2]];
+          bottomColors[6] = [cl7[0], cl7[1], cl7[2]];
+          bottomColors[7] = [cl8[0], cl8[1], cl8[2]];
+          bottomColors[8] = [cl9[0], cl9[1], cl9[2]];
+        }
+        else{
+          alert("Cannot save cube, incorresct face!")
+        }
       }
       currentFace = currentFace + 1;
     
@@ -670,11 +752,6 @@ function checkColor(r, g, b){
     return "blue"
   }
 
-  if(hueAngle >= 270 && hueAngle <= 330){
-    colorName = "purple"
-    return "purple"
-  }
-
   if(hueAngle >= 30 && hueAngle <= 75){
     colorName = "yellow"
     return "yellow"
@@ -683,19 +760,4 @@ function checkColor(r, g, b){
   blueIsMax = false;
   redIsMax = false;
   greenIsMax = false;
-}
-
-function findColors(input, width, height){
-  if (input.width === 0 || input.height === 0) {
-    return undefined;
-  }
-
-  input.loadPixels();
-
-  let index = (height * video.width + width) * 4;
-  let r = video.pixels[index];
-  let g = video.pixels[index+1];
-  let b = video.pixels[index+2];
-
-  checkColor(r, g, b)
 }

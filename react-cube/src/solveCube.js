@@ -82,6 +82,9 @@ let index;
 let counter;
 let processedMovesToDo;
 
+var buttonScramble;
+var buttonSolve;
+
 export function setup() {
   p.pixelDensity(1);
   p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
@@ -89,17 +92,14 @@ export function setup() {
   index = 0;
   cubes = [];
 
-  var buttonScramble = p.createButton('SCRAMBLE');
+  buttonScramble = p.createButton('SCRAMBLE');
   buttonScramble.mousePressed(scrambleCube);
   buttonScramble.position(780, 600);
 
-  // buttonSaveFace = p.createButton('SAVE');
-  // buttonSaveFace.mousePressed(saveColors);
-  // buttonSaveFace.position(880, 600);
-
-  var buttonSolve = p.createButton('SOLVE');
+  buttonSolve = p.createButton('SOLVE');
   buttonSolve.mousePressed(solveCube);
   buttonSolve.position(720, 600);
+  buttonSolve.attribute('disabled', '');
 
   for (let i = 0; i < dim; i++) {
     for (let j = 0; j < dim; j++) {
@@ -184,6 +184,7 @@ function processBackMoves(moves){
 
 
 function scrambleCube(){
+  buttonSolve.attribute('disabled', '');
   let cube = new Cube();
 
   cube.randomize();
@@ -207,6 +208,7 @@ function scrambleCube(){
 }
 
 async function doScrambling(){
+  buttonScramble.attribute('disabled', '');
   console.log("Scrambling: ", processedMovesToDo)
   console.log("Length: ", processedMovesToDo.length / 2)
   for(let i = 0; i < counter*2; i = i + 2){
@@ -215,15 +217,18 @@ async function doScrambling(){
     await sleep(100);
     play(processedMovesToDo[i])
   }
+  buttonSolve.removeAttribute('disabled');
 }
 
 async function solveCube(){
+  buttonSolve.attribute('disabled', '');
   console.log("Solving: ", newMoves)
   for(let i = 0; i < counter; i++){
     console.log(i);
     await sleep(1000);
     play(newMoves[i])
   }
+  buttonScramble.removeAttribute('disabled');
 }
 
 function sleep(ms){
@@ -328,6 +333,7 @@ function flipMove(mKey) {
 
 export function draw() {
   p.background("#081b2a");
+
   p.orbitControl();
 
   if (animating) {

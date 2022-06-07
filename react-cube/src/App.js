@@ -1,33 +1,20 @@
 import React, { useState } from 'react';
 import './App.css';
-import Sketch from './Sketch'
-import * as scanner from './scanner';
-import * as solveCube from './solveCube'
-
-class SolveCubeComponent extends React.Component {
-  render() {
-    return (
-      <Sketch sketch={solveCube}/>
-    );
-  }  
-}
-
-class ScannerComponent extends React.Component {
-    render() {
-      return (
-        <Sketch sketch={scanner}/>
-      );
-    }  
-  }
+import SolveCubeComponent from './components/SolveCubeComponent'
+import ScannerComponent from './components/ScannerComponent'
+import { isVisible } from './scanner';
 
 const App = () => {
-    const [clickedScanner, setClickedScanner] = useState(false);
+    const [clickedScanner, setClickedScanner] = useState(isVisible);
   
     return (
-      <div>
-        <button onClick={() => {setClickedScanner(!clickedScanner)}} >Scanner</button>
-        {clickedScanner ? <ScannerComponent /> : <SolveCubeComponent/>}
-      </div>
+      <body className='bgImg'>
+          <div>
+            <button onClick={() => { setClickedScanner(!clickedScanner); } }>GO TO ANIMATION</button>
+            {clickedScanner ? <ScannerComponent /> : <SolveCubeComponent />}
+          </div>
+      </body>
+      
     );
   }
 

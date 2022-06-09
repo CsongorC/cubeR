@@ -48,16 +48,4 @@ export default class colorCube{
       return false;
     }
   
-    decreaseCenter(){
-      this.center -= 1;
-    }
-  
-    decreaseEdge(){
-      this.edges -= 1;
-    }
-  
-    decreaseCorner(){
-      this.corners -= 1;
-    }
-  
   }

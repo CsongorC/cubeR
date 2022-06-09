@@ -25,6 +25,17 @@ let rightColors;
 let frontColors;
 let posteriorColors;
 
+let upFace = "";
+let frontFace = "";
+let leftFace = "";
+let rightFace = "";
+let posteriorFace = "";
+let downFace = "";
+
+let wholeCubeInLetters;
+
+export { wholeCubeInLetters };
+
 let buttonSaveFace;
 let buttonAnimate;
 let buttonClear;
@@ -51,6 +62,10 @@ export function setup() {
   buttonClear.mousePressed(clearCube);
   buttonClear.position(1255, 600);
 
+  buttonClear = p.createButton('SAVE CUBE');
+  buttonClear.mousePressed(saveCube);
+  buttonClear.position(1555, 600);
+
   topColors = [[255,255,255], [255,255,255], [255,255,255],
                [255,255,255], [255,255,255], [255,255,255],
                [255,255,255], [255,255,255], [255,255,255]];
@@ -74,6 +89,25 @@ export function setup() {
   posteriorColors = [[255,255,255], [255,255,255], [255,255,255],
                      [255,255,255], [255,255,255], [255,255,255],
                      [255,255,255], [255,255,255], [255,255,255]];
+}
+
+function saveCube(){
+  upFace = colorToLetterConverter(topColors);
+  frontFace = colorToLetterConverter(frontColors);
+  leftFace = colorToLetterConverter(leftColors);
+  rightFace = colorToLetterConverter(rightColors);
+  posteriorFace = colorToLetterConverter(posteriorColors);
+  downFace = colorToLetterConverter(bottomColors);
+
+  console.log("Front: ", frontFace)
+  console.log("Right: ", rightFace)
+  console.log("Up: ", upFace)
+  console.log("Down: ", downFace)
+  console.log("Left: ", leftFace)
+  console.log("Back: ", posteriorFace)
+
+  wholeCubeInLetters = upFace + rightFace + frontFace + downFace + leftFace + posteriorFace;
+  console.log(wholeCubeInLetters);
 }
 
 function clearCube(){
@@ -108,6 +142,33 @@ function clearCube(){
   faceOrder = "Top face";
 }
 
+function colorToLetterConverter(arrayColor){
+  let letters = "";
+  for(let i = 0; i < 9; i++){
+    if(arrayColor[i][0] == 255 && arrayColor[i][1] ==  255 && arrayColor[i][2] == 255){ // white 
+      letters += "U"; 
+    }
+    if(arrayColor[i][0] == 255 && arrayColor[i][1] ==  0 && arrayColor[i][2] == 0){ // red
+      letters += "R";
+    }
+    if(arrayColor[i][0] == 0 && arrayColor[i][1] ==  255 && arrayColor[i][2] == 0){ // green
+      letters += "F";
+    }
+    if(arrayColor[i][0] == 0 && arrayColor[i][1] ==  0 && arrayColor[i][2] == 255){ // blue
+      letters += "B";
+    }
+    if(arrayColor[i][0] == 255 && arrayColor[i][1] ==  140 && arrayColor[i][2] == 0){ // orange
+      letters += "L";
+    }
+    if(arrayColor[i][0] == 255 && arrayColor[i][1] ==  255 && arrayColor[i][2] == 0){ // yellow
+      letters += "D";
+    }
+  }
+
+  return letters;
+}
+
+
 function checkForErrorInFace(){
   if(cl1[0] != 112 && cl1[1] != 128 && cl1[2] != 144 &&
     cl2[0] != 112 && cl2[1] != 128 && cl2[2] != 144 &&
@@ -124,8 +185,6 @@ function checkForErrorInFace(){
 }
 
 function saveColors(){
-  console.log(currentFace);
-
   if(checkForErrorInFace()){
 
       if(currentFace == 0){
@@ -145,13 +204,13 @@ function saveColors(){
           cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2])
 
           topColors[0] = [cl1[0], cl1[1], cl1[2]];
-          topColors[1] = [cl2[0], cl2[1], cl2[2]];
-          topColors[2] = [cl3[0], cl3[1], cl3[2]];
-          topColors[3] = [cl4[0], cl4[1], cl4[2]];
+          topColors[3] = [cl2[0], cl2[1], cl2[2]];
+          topColors[6] = [cl3[0], cl3[1], cl3[2]];
+          topColors[1] = [cl4[0], cl4[1], cl4[2]];
           topColors[4] = [cl5[0], cl5[1], cl5[2]];
-          topColors[5] = [cl6[0], cl6[1], cl6[2]];
-          topColors[6] = [cl7[0], cl7[1], cl7[2]];
-          topColors[7] = [cl8[0], cl8[1], cl8[2]];
+          topColors[7] = [cl6[0], cl6[1], cl6[2]];
+          topColors[2] = [cl7[0], cl7[1], cl7[2]];
+          topColors[5] = [cl8[0], cl8[1], cl8[2]];
           topColors[8] = [cl9[0], cl9[1], cl9[2]];
         }
         else{
@@ -175,13 +234,13 @@ function saveColors(){
           cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2])
 
           frontColors[0] = [cl1[0], cl1[1], cl1[2]];
-          frontColors[1] = [cl2[0], cl2[1], cl2[2]];
-          frontColors[2] = [cl3[0], cl3[1], cl3[2]];
-          frontColors[3] = [cl4[0], cl4[1], cl4[2]];
+          frontColors[3] = [cl2[0], cl2[1], cl2[2]];
+          frontColors[6] = [cl3[0], cl3[1], cl3[2]];
+          frontColors[1] = [cl4[0], cl4[1], cl4[2]];
           frontColors[4] = [cl5[0], cl5[1], cl5[2]];
-          frontColors[5] = [cl6[0], cl6[1], cl6[2]];
-          frontColors[6] = [cl7[0], cl7[1], cl7[2]];
-          frontColors[7] = [cl8[0], cl8[1], cl8[2]];
+          frontColors[7] = [cl6[0], cl6[1], cl6[2]];
+          frontColors[2] = [cl7[0], cl7[1], cl7[2]];
+          frontColors[5] = [cl8[0], cl8[1], cl8[2]];
           frontColors[8] = [cl9[0], cl9[1], cl9[2]];
         }
         else{
@@ -205,13 +264,13 @@ function saveColors(){
           cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2])
 
           leftColors[0] = [cl1[0], cl1[1], cl1[2]];
-          leftColors[1] = [cl2[0], cl2[1], cl2[2]];
-          leftColors[2] = [cl3[0], cl3[1], cl3[2]];
-          leftColors[3] = [cl4[0], cl4[1], cl4[2]];
+          leftColors[3] = [cl2[0], cl2[1], cl2[2]];
+          leftColors[6] = [cl3[0], cl3[1], cl3[2]];
+          leftColors[1] = [cl4[0], cl4[1], cl4[2]];
           leftColors[4] = [cl5[0], cl5[1], cl5[2]];
-          leftColors[5] = [cl6[0], cl6[1], cl6[2]];
-          leftColors[6] = [cl7[0], cl7[1], cl7[2]];
-          leftColors[7] = [cl8[0], cl8[1], cl8[2]];
+          leftColors[7] = [cl6[0], cl6[1], cl6[2]];
+          leftColors[2] = [cl7[0], cl7[1], cl7[2]];
+          leftColors[5] = [cl8[0], cl8[1], cl8[2]];
           leftColors[8] = [cl9[0], cl9[1], cl9[2]];
         }
         else{
@@ -234,13 +293,13 @@ function saveColors(){
           cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2])
 
           rightColors[0] = [cl1[0], cl1[1], cl1[2]];
-          rightColors[1] = [cl2[0], cl2[1], cl2[2]];
-          rightColors[2] = [cl3[0], cl3[1], cl3[2]];
-          rightColors[3] = [cl4[0], cl4[1], cl4[2]];
+          rightColors[3] = [cl2[0], cl2[1], cl2[2]];
+          rightColors[6] = [cl3[0], cl3[1], cl3[2]];
+          rightColors[1] = [cl4[0], cl4[1], cl4[2]];
           rightColors[4] = [cl5[0], cl5[1], cl5[2]];
-          rightColors[5] = [cl6[0], cl6[1], cl6[2]];
-          rightColors[6] = [cl7[0], cl7[1], cl7[2]];
-          rightColors[7] = [cl8[0], cl8[1], cl8[2]];
+          rightColors[7] = [cl6[0], cl6[1], cl6[2]];
+          rightColors[2] = [cl7[0], cl7[1], cl7[2]];
+          rightColors[5] = [cl8[0], cl8[1], cl8[2]];
           rightColors[8] = [cl9[0], cl9[1], cl9[2]];
         }
         else{
@@ -263,17 +322,17 @@ function saveColors(){
           cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2])
 
           posteriorColors[0] = [cl1[0], cl1[1], cl1[2]];
-          posteriorColors[1] = [cl2[0], cl2[1], cl2[2]];
-          posteriorColors[2] = [cl3[0], cl3[1], cl3[2]];
-          posteriorColors[3] = [cl4[0], cl4[1], cl4[2]];
+          posteriorColors[3] = [cl2[0], cl2[1], cl2[2]];
+          posteriorColors[6] = [cl3[0], cl3[1], cl3[2]];
+          posteriorColors[1] = [cl4[0], cl4[1], cl4[2]];
           posteriorColors[4] = [cl5[0], cl5[1], cl5[2]];
-          posteriorColors[5] = [cl6[0], cl6[1], cl6[2]];
-          posteriorColors[6] = [cl7[0], cl7[1], cl7[2]];
-          posteriorColors[7] = [cl8[0], cl8[1], cl8[2]];
+          posteriorColors[7] = [cl6[0], cl6[1], cl6[2]];
+          posteriorColors[2] = [cl7[0], cl7[1], cl7[2]];
+          posteriorColors[5] = [cl8[0], cl8[1], cl8[2]];
           posteriorColors[8] = [cl9[0], cl9[1], cl9[2]];
         }
         else{
-          alert("Cannot save cube, incorresct face!")
+          alert("Cannot save cube, incorrect face!")
         }
       }
       if(currentFace == 5){
@@ -292,13 +351,13 @@ function saveColors(){
           cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2])
 
           bottomColors[0] = [cl1[0], cl1[1], cl1[2]];
-          bottomColors[1] = [cl2[0], cl2[1], cl2[2]];
-          bottomColors[2] = [cl3[0], cl3[1], cl3[2]];
-          bottomColors[3] = [cl4[0], cl4[1], cl4[2]];
+          bottomColors[3] = [cl2[0], cl2[1], cl2[2]];
+          bottomColors[6] = [cl3[0], cl3[1], cl3[2]];
+          bottomColors[1] = [cl4[0], cl4[1], cl4[2]];
           bottomColors[4] = [cl5[0], cl5[1], cl5[2]];
-          bottomColors[5] = [cl6[0], cl6[1], cl6[2]];
-          bottomColors[6] = [cl7[0], cl7[1], cl7[2]];
-          bottomColors[7] = [cl8[0], cl8[1], cl8[2]];
+          bottomColors[7] = [cl6[0], cl6[1], cl6[2]];
+          bottomColors[2] = [cl7[0], cl7[1], cl7[2]];
+          bottomColors[5] = [cl8[0], cl8[1], cl8[2]];
           bottomColors[8] = [cl9[0], cl9[1], cl9[2]];
         }
         else{
@@ -445,19 +504,19 @@ export function draw() {
     // top face
     let r1 = new cubie(1250, 250, topColors[0], "top", 0);
     cubies.push(r1);
-    r1 = new cubie(1250, 275, topColors[1], "top", 1);
+    r1 = new cubie(1250, 275, topColors[3], "top", 1);
     cubies.push(r1);
-    r1 = new cubie(1250, 300, topColors[2], "top", 2);
+    r1 = new cubie(1250, 300, topColors[6], "top", 2);
     cubies.push(r1);
-    r1 = new cubie(1275, 250, topColors[3], "top", 3);
+    r1 = new cubie(1275, 250, topColors[1], "top", 3);
     cubies.push(r1);
     r1 = new cubie(1275, 275, topColors[4], "top", 4);
     cubies.push(r1);
-    r1 = new cubie(1275, 300, topColors[5], "top", 5);
+    r1 = new cubie(1275, 300, topColors[7], "top", 5);
     cubies.push(r1);
-    r1 = new cubie(1300, 250, topColors[6], "top", 6);
+    r1 = new cubie(1300, 250, topColors[2], "top", 6);
     cubies.push(r1);
-    r1 = new cubie(1300, 275, topColors[7], "top", 7);
+    r1 = new cubie(1300, 275, topColors[5], "top", 7);
     cubies.push(r1);
     r1 = new cubie(1300, 300, topColors[8], "top", 8);
     cubies.push(r1);
@@ -465,19 +524,19 @@ export function draw() {
     // left face 
     r1 = new cubie(1175, 325, leftColors[0], "left", 0);
     cubies.push(r1);
-    r1 = new cubie(1175, 350, leftColors[1], "left", 1);
+    r1 = new cubie(1175, 350, leftColors[3], "left", 1);
     cubies.push(r1);
-    r1 = new cubie(1175, 375, leftColors[2], "left", 2);
+    r1 = new cubie(1175, 375, leftColors[6], "left", 2);
     cubies.push(r1);
-    r1 = new cubie(1200, 325, leftColors[3], "left", 3);
+    r1 = new cubie(1200, 325, leftColors[1], "left", 3);
     cubies.push(r1);
     r1 = new cubie(1200, 350, leftColors[4], "left", 4);
     cubies.push(r1);
-    r1 = new cubie(1200, 375, leftColors[5], "left", 5);
+    r1 = new cubie(1200, 375, leftColors[7], "left", 5);
     cubies.push(r1);
-    r1 = new cubie(1225, 325, leftColors[6], "left", 6);
+    r1 = new cubie(1225, 325, leftColors[2], "left", 6);
     cubies.push(r1);
-    r1 = new cubie(1225, 350, leftColors[7], "left", 7);
+    r1 = new cubie(1225, 350, leftColors[5], "left", 7);
     cubies.push(r1);
     r1 = new cubie(1225, 375, leftColors[8], "left", 8);
     cubies.push(r1);
@@ -485,19 +544,19 @@ export function draw() {
     // front face 
     r1 = new cubie(1250, 325, frontColors[0], "front", 0);
     cubies.push(r1);
-    r1 = new cubie(1250, 350, frontColors[1], "front", 1);
+    r1 = new cubie(1250, 350, frontColors[3], "front", 1);
     cubies.push(r1);
-    r1 = new cubie(1250, 375, frontColors[2], "front", 2);
+    r1 = new cubie(1250, 375, frontColors[6], "front", 2);
     cubies.push(r1);
-    r1 = new cubie(1275, 325, frontColors[3], "front", 3);
+    r1 = new cubie(1275, 325, frontColors[1], "front", 3);
     cubies.push(r1);
     r1 = new cubie(1275, 350, frontColors[4], "front", 4);
     cubies.push(r1);
-    r1 = new cubie(1275, 375, frontColors[5], "front", 5);
+    r1 = new cubie(1275, 375, frontColors[7], "front", 5);
     cubies.push(r1);
-    r1 = new cubie(1300, 325, frontColors[6], "front", 6);
+    r1 = new cubie(1300, 325, frontColors[2], "front", 6);
     cubies.push(r1);
-    r1 = new cubie(1300, 350, frontColors[7], "front", 7);
+    r1 = new cubie(1300, 350, frontColors[5], "front", 7);
     cubies.push(r1);
     r1 = new cubie(1300, 375, frontColors[8], "front", 8);
     cubies.push(r1);
@@ -505,19 +564,19 @@ export function draw() {
     // right face
     r1 = new cubie(1325, 325, rightColors[0], "right", 0);
     cubies.push(r1);
-    r1 = new cubie(1325, 350, rightColors[1], "right", 1);
+    r1 = new cubie(1325, 350, rightColors[3], "right", 1);
     cubies.push(r1);
-    r1 = new cubie(1325, 375, rightColors[2], "right", 2);
+    r1 = new cubie(1325, 375, rightColors[6], "right", 2);
     cubies.push(r1);
-    r1 = new cubie(1350, 325, rightColors[3], "right", 3);
+    r1 = new cubie(1350, 325, rightColors[1], "right", 3);
     cubies.push(r1);
     r1 = new cubie(1350, 350, rightColors[4], "right", 4);
     cubies.push(r1);
-    r1 = new cubie(1350, 375, rightColors[5], "right", 5);
+    r1 = new cubie(1350, 375, rightColors[7], "right", 5);
     cubies.push(r1);
-    r1 = new cubie(1375, 325, rightColors[6], "right", 6);
+    r1 = new cubie(1375, 325, rightColors[2], "right", 6);
     cubies.push(r1);
-    r1 = new cubie(1375, 350, rightColors[7], "right", 7);
+    r1 = new cubie(1375, 350, rightColors[5], "right", 7);
     cubies.push(r1);
     r1 = new cubie(1375, 375, rightColors[8], "right", 8);
     cubies.push(r1);
@@ -525,41 +584,41 @@ export function draw() {
     // bottom face
     r1 = new cubie(1250, 400, bottomColors[0], "bottom", 0);
     cubies.push(r1);
-    r1 = new cubie(1250, 425, bottomColors[1], "bottom", 1);
+    r1 = new cubie(1250, 425, bottomColors[3], "bottom", 1);
     cubies.push(r1);
-    r1 = new cubie(1250, 450, bottomColors[2], "bottom", 2);
+    r1 = new cubie(1250, 450, bottomColors[6], "bottom", 2);
     cubies.push(r1);
-    r1 = new cubie(1275, 400, bottomColors[3], "bottom", 3);
+    r1 = new cubie(1275, 400, bottomColors[1], "bottom", 3);
     cubies.push(r1);
     r1 = new cubie(1275, 425, bottomColors[4], "bottom", 4);
     cubies.push(r1);
-    r1 = new cubie(1275, 450, bottomColors[5], "bottom", 5);
+    r1 = new cubie(1275, 450, bottomColors[7], "bottom", 5);
     cubies.push(r1);
-    r1 = new cubie(1300, 400, bottomColors[6], "bottom", 6);
+    r1 = new cubie(1300, 400, bottomColors[2], "bottom", 6);
     cubies.push(r1);
-    r1 = new cubie(1300, 425, bottomColors[7], "bottom", 7);
+    r1 = new cubie(1300, 425, bottomColors[5], "bottom", 7);
     cubies.push(r1);
     r1 = new cubie(1300, 450, bottomColors[8], "bottom", 8);
     cubies.push(r1);
 
     // posterior face
-    r1 = new cubie(1250, 475, posteriorColors[0], "posterior", 0);
+    r1 = new cubie(1250, 475, posteriorColors[8], "posterior", 0);
     cubies.push(r1);
-    r1 = new cubie(1250, 500, posteriorColors[1], "posterior", 1);
+    r1 = new cubie(1250, 500, posteriorColors[7], "posterior", 1);
     cubies.push(r1);
-    r1 = new cubie(1250, 525, posteriorColors[2], "posterior", 2);
+    r1 = new cubie(1250, 525, posteriorColors[6], "posterior", 2);
     cubies.push(r1);
-    r1 = new cubie(1275, 475, posteriorColors[3], "posterior", 3);
+    r1 = new cubie(1275, 475, posteriorColors[5], "posterior", 3);
     cubies.push(r1);
     r1 = new cubie(1275, 500, posteriorColors[4], "posterior", 4);
     cubies.push(r1);
-    r1 = new cubie(1275, 525, posteriorColors[5], "posterior", 5);
+    r1 = new cubie(1275, 525, posteriorColors[3], "posterior", 5);
     cubies.push(r1);
-    r1 = new cubie(1300, 475, posteriorColors[6], "posterior", 6);
+    r1 = new cubie(1300, 475, posteriorColors[2], "posterior", 6);
     cubies.push(r1);
-    r1 = new cubie(1300, 500, posteriorColors[7], "posterior", 7);
+    r1 = new cubie(1300, 500, posteriorColors[1], "posterior", 7);
     cubies.push(r1);
-    r1 = new cubie(1300, 525, posteriorColors[8], "posterior", 8);
+    r1 = new cubie(1300, 525, posteriorColors[0], "posterior", 8);
     cubies.push(r1);
 
 

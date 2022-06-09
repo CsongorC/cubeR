@@ -2,6 +2,7 @@ import { p } from './Sketch'
 import { MyCube } from './mycube'
 import Cube  from './libraries/cube'
 import Solver  from './libraries/solve'
+import {wholeCubeInLetters} from './scanner'
 
 
 const size = 75;
@@ -14,12 +15,19 @@ let backwardMoves = false;
 let newMoves;
 
 let colors = [
+  // [255, 0, 0],    // red
+  // [255, 100, 0],  // orange
+  // [0, 200, 0],    // green
+  // [0, 0, 255],    // blue
+  // [255, 255, 0],  // yellow
+  // [255, 255, 255] // white
+
+  [0, 255, 0],    // green
+  [0, 0, 255],  // blue
   [255, 0, 0],    // red
-  [255, 100, 0],  // orange
-  [0, 200, 0],    // green
-  [0, 0, 255],    // blue
-  [255, 255, 0],  // yellow
-  [255, 255, 255] // white
+  [255, 100, 0],    // orange
+  [255, 255, 255],  // white
+  [255, 255, 0] // yellow
 ];
 
 let indexes = [
@@ -79,18 +87,116 @@ let clockwise = 1;
 let position;
 let rotateType = null;
 let index;
-let counter;
-let processedMovesToDo;
 
 var buttonScramble;
 var buttonSolve;
 
+function playU(){
+  play("U");
+}
+
+function playD(){
+  play("D");
+}
+
+function playR(){
+  play("R");
+}
+
+function playL(){
+  play("L");
+}
+
+function playF(){
+  play("F");
+}
+
+function playB(){
+  play("B");
+}
+
+function playu(){
+  play("u");
+}
+
+function playd(){
+  play("d");
+}
+
+function playr(){
+  play("r");
+}
+
+function playl(){
+  play("l");
+}
+
+function playf(){
+  play("f");
+}
+
+function playb(){
+  play("b");
+}
+
 export function setup() {
+
+  console.log(wholeCubeInLetters);
+
   p.pixelDensity(1);
   p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
   p.setAttributes("antialias", true);
   index = 0;
   cubes = [];
+
+  var buttonU = p.createButton('U');
+  buttonU.mousePressed(playU);
+  buttonU.position(650, 750);
+
+  var buttonD = p.createButton('D');
+  buttonD.mousePressed(playD);
+  buttonD.position(700, 750);
+
+  var buttonR = p.createButton('R');
+  buttonR.mousePressed(playR);
+  buttonR.position(750, 750);
+
+  var buttonL = p.createButton('L');
+  buttonL.mousePressed(playL);
+  buttonL.position(800, 750);
+
+  var buttonF = p.createButton('F');
+  buttonF.mousePressed(playF);
+  buttonF.position(850, 750);
+
+  var buttonB = p.createButton('B');
+  buttonB.mousePressed(playB);
+  buttonB.position(900, 750);
+
+  var buttonu = p.createButton('U\'');
+  buttonu.mousePressed(playu);
+  buttonu.position(650, 800);
+
+  var buttond = p.createButton('D\'');
+  buttond.mousePressed(playd);
+  buttond.position(700, 800);
+
+  var buttonr = p.createButton('R\'');
+  buttonr.mousePressed(playr);
+  buttonr.position(750, 800);
+
+  var buttonl = p.createButton('L\'');
+  buttonl.mousePressed(playl);
+  buttonl.position(800, 800);
+
+  var buttonf = p.createButton('F\'');
+  buttonf.mousePressed(playf);
+  buttonf.position(850, 800);
+
+  var buttonb = p.createButton('B\'');
+  buttonb.mousePressed(playb);
+  buttonb.position(900, 800);
+
 
   buttonScramble = p.createButton('SCRAMBLE');
   buttonScramble.mousePressed(scrambleCube);
@@ -183,17 +289,36 @@ function processBackMoves(moves){
 }
 
 
+let solveMoves = "";
+let movesToDo;
+let processedMovesToDo;
+let counter;
+
 function scrambleCube(){
   buttonSolve.attribute('disabled', '');
-  let cube = new Cube();
 
-  cube.randomize();
+  // let cubeState = [
+  //   'flulfbddr', // front
+  //   'rudrruddl', // right
+  //   'dbbburrfb', // up
+  //   'llffdrubf', // down
+  //   'rludlubrf', // left
+  //   'lubfbfudl' // back
+  // ].join('');
+
+  let str = "DBBBURRFBRUDRRUDDLFLULFBDDRLLFFDRUBFRLUDLUBRFLUBFBFUDL";
+  console.log(wholeCubeInLetters);
+  
+  const cube = new Cube(Cube.fromString(wholeCubeInLetters));
+
+  buttonSolve.attribute('disabled', '');
 
   Cube.initSolver();
 
   newMoves = cube.solve();
 
   let newReformattedMoves = processMoves(newMoves);
+  console.log(newMoves);
 
   cube.move(newReformattedMoves);
 
@@ -205,15 +330,14 @@ function scrambleCube(){
   counter = mv.counter;
 
   doScrambling();
+  
 }
 
 async function doScrambling(){
+  console.log("Scrambling: ");
   buttonScramble.attribute('disabled', '');
-  console.log("Scrambling: ", processedMovesToDo)
-  console.log("Length: ", processedMovesToDo.length / 2)
-  for(let i = 0; i < counter*2; i = i + 2){
+  for(let i = 0; i < processedMovesToDo.length; i++){
     angle = angle += 1.5;
-    console.log("Move ", processedMovesToDo[i])
     await sleep(100);
     play(processedMovesToDo[i])
   }
@@ -222,9 +346,8 @@ async function doScrambling(){
 
 async function solveCube(){
   buttonSolve.attribute('disabled', '');
-  console.log("Solving: ", newMoves)
-  for(let i = 0; i < counter; i++){
-    console.log(i);
+  console.log("Solving: ");
+  for(let i = 0; i < newMoves.length; i++){
     await sleep(1000);
     play(newMoves[i])
   }
@@ -241,77 +364,81 @@ function keyPressed(key) {
   }
 }
 
+let c = 0;
+
 function play(key) {
+  console.log(c, ": ", key);
+  c += 1;
   if (!animating) {
     angle = 0;
     switch (key) {
-      case "f":
+      case "F":
         clockwise = 1;
         position = 1;
         rotateType = "z";
         animating = true;
         break;
-      case "F":
+      case "f":
         clockwise = -1;
         position = 1;
-        rotateType = "z";
-        animating = true;
-        break;
-      case "b":
-        clockwise = -1;
-        position = -1;
         rotateType = "z";
         animating = true;
         break;
       case "B":
+        clockwise = -1;
+        position = -1;
+        rotateType = "z";
+        animating = true;
+        break;
+      case "b":
         clockwise = 1;
         position = -1;
         rotateType = "z";
         animating = true;
         break;
-      case "r":
+      case "R":
         clockwise = 1;
         position = 1;
         rotateType = "x";
         animating = true;
         break;
-      case "R":
+      case "r":
         clockwise = -1;
         position = 1;
-        rotateType = "x";
-        animating = true;
-        break;
-      case "l":
-        clockwise = -1;
-        position = -1;
         rotateType = "x";
         animating = true;
         break;
       case "L":
+        clockwise = -1;
+        position = -1;
+        rotateType = "x";
+        animating = true;
+        break;
+      case "l":
         clockwise = 1;
         position = -1;
         rotateType = "x";
         animating = true;
         break;
-      case "u":
+      case "U":
         clockwise = -1;
         position = -1;
         rotateType = "y";
         animating = true;
         break;
-      case "U":
+      case "u":
         clockwise = 1;
         position = -1;
         rotateType = "y";
         animating = true;
         break;
-      case "d":
+      case "D":
         clockwise = 1;
         position = 1;
         rotateType = "y";
         animating = true;
         break;
-      case "D":
+      case "d":
         clockwise = -1;
         position = 1;
         rotateType = "y";

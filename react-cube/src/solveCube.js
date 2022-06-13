@@ -141,8 +141,6 @@ function playb(){
 
 export function setup() {
 
-  console.log(wholeCubeInLetters);
-
   p.pixelDensity(1);
   p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
   p.setAttributes("antialias", true);
@@ -295,41 +293,33 @@ let processedMovesToDo;
 let counter;
 
 function scrambleCube(){
-  buttonSolve.attribute('disabled', '');
-
-  // let cubeState = [
-  //   'flulfbddr', // front
-  //   'rudrruddl', // right
-  //   'dbbburrfb', // up
-  //   'llffdrubf', // down
-  //   'rludlubrf', // left
-  //   'lubfbfudl' // back
-  // ].join('');
-
-  let str = "DBBBURRFBRUDRRUDDLFLULFBDDRLLFFDRUBFRLUDLUBRFLUBFBFUDL";
-  console.log(wholeCubeInLetters);
+  if(wholeCubeInLetters == ""){
+    alert("The scanned cube was not saved!");
+  }
+  else{
+    buttonSolve.attribute('disabled', '');
   
-  const cube = new Cube(Cube.fromString(wholeCubeInLetters));
+    const cube = new Cube(Cube.fromString(wholeCubeInLetters));
 
-  buttonSolve.attribute('disabled', '');
+    buttonSolve.attribute('disabled', '');
 
-  Cube.initSolver();
+    Cube.initSolver();
 
-  newMoves = cube.solve();
+    newMoves = cube.solve();
 
-  let newReformattedMoves = processMoves(newMoves);
-  console.log(newMoves);
+    let newReformattedMoves = processMoves(newMoves);
 
-  cube.move(newReformattedMoves);
+    cube.move(newReformattedMoves);
 
-  let movesToDo = "";
-  movesToDo = Cube.inverse(newReformattedMoves);
+    let movesToDo = "";
+    movesToDo = Cube.inverse(newReformattedMoves);
 
-  let mv = processBackMoves(movesToDo);
-  processedMovesToDo = mv.processedMoves;
-  counter = mv.counter;
+    let mv = processBackMoves(movesToDo);
+    processedMovesToDo = mv.processedMoves;
+    counter = mv.counter;
 
-  doScrambling();
+    doScrambling();
+  }
   
 }
 
@@ -348,7 +338,7 @@ async function solveCube(){
   buttonSolve.attribute('disabled', '');
   console.log("Solving: ");
   for(let i = 0; i < newMoves.length; i++){
-    await sleep(1000);
+    await sleep(2000);
     play(newMoves[i])
   }
   buttonScramble.removeAttribute('disabled');
@@ -459,7 +449,7 @@ function flipMove(mKey) {
 }
 
 export function draw() {
-  p.background("#081b2a");
+  p.background("#161616");
 
   p.orbitControl();
 

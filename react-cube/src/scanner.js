@@ -48,6 +48,7 @@ let downFace = "";
 let wholeCubeInLetters = "";
 
 export { wholeCubeInLetters };
+export { upFace, frontFace, leftFace, rightFace, posteriorFace, downFace };
 
 let buttonSaveFace;
 let buttonAnimate;
@@ -75,9 +76,9 @@ export function setup() {
   buttonClear.mousePressed(clearCube);
   buttonClear.position(1965, 670);
 
-  buttonClear = p.createButton("SAVE CUBE");
-  buttonClear.mousePressed(saveCube);
-  buttonClear.position(1949, 270);
+  buttonClear = p.createButton("CLEAR LAST");
+  //buttonClear.mousePressed(reDoFace);
+  buttonClear.position(1948, 270);
 
   topColors = [
     [255, 255, 255],
@@ -170,6 +171,8 @@ function saveCube() {
   wholeCubeInLetters =
     upFace + rightFace + frontFace + downFace + leftFace + posteriorFace;
   console.log(wholeCubeInLetters);
+
+  alert('Cube saved successfully.', 2000);
 }
 
 function clearCube() {
@@ -550,6 +553,7 @@ function saveColors() {
         bottomColors[2] = [cl7[0], cl7[1], cl7[2]];
         bottomColors[5] = [cl8[0], cl8[1], cl8[2]];
         bottomColors[8] = [cl9[0], cl9[1], cl9[2]];
+        saveCube();
       } else {
         alert("Cannot save cube, incorresct face!");
       }

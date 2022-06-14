@@ -5,7 +5,9 @@ import * as scanner from '../scanner';
 export default class ScannerComponent extends React.Component {
     render() {
       return (
+        <>
         <Sketch sketch={scanner}/>
+        </>
       );
     }  
 }

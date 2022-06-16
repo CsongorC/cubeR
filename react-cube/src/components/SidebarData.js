@@ -3,6 +3,7 @@ import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import * as IoIcons from 'react-icons/io';
 import * as BsIcons from "react-icons/bs";
+import * as GiIcons from 'react-icons/gi';
 
 export const SidebarData = [
     {
@@ -12,9 +13,15 @@ export const SidebarData = [
         cName: 'nav-text'
     },
     {
-        title: 'Tutorials',
+        title: 'To know',
         path: '/about',
         icon: <AiIcons.AiOutlineRead />,
+        cName: 'nav-text'
+    },
+    {
+        title: 'Solve the shuffle',
+        path: '/manual-solver',
+        icon: <BsIcons.BsLightbulb />, 
         cName: 'nav-text'
     },
     {
@@ -24,9 +31,9 @@ export const SidebarData = [
         cName: 'nav-text'
     },
     {
-        title: 'Solver',
+        title: 'Smart Solver',
         path: '/solver',
-        icon: <BsIcons.BsLightbulb />, 
+        icon: <GiIcons.GiBrain />, 
         cName: 'nav-text'
     }
 ]

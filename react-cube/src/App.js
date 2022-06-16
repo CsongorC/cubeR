@@ -7,6 +7,7 @@ import AboutCube from './components/AboutTheCube'
 import { isVisible } from './scanner';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import ManualSolverComponent from './components/ManualSolverComponent'
 
 function App(){
     return (
@@ -18,6 +19,7 @@ function App(){
           <Route path='/about' element={<AboutCube />}/>
           <Route path='/scanner' element={<ScannerComponent />}/>
           <Route path='/solver' element={<SolveCubeComponent />}/>
+          <Route path='/manual-solver' element={<ManualSolverComponent />}/>
         </Routes>
       </Router>
       </>

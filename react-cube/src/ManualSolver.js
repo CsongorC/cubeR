@@ -1,25 +1,6 @@
 import { p } from "./Sketch";
 import { MyCube } from "./mycube";
 import Cube from "./libraries/cube";
-import Solver from "./libraries/solve";
-import { wholeCubeInLetters } from "./scanner";
-import solver from "rubiks-cube-solver";
-import {
-  upFace,
-  frontFace,
-  leftFace,
-  rightFace,
-  posteriorFace,
-  downFace,
-} from "./scanner";
-import {
-  setDownFace,
-  setUpFace,
-  setLeftFace,
-  setFrontFace,
-  setRightFace, 
-  setPosteriorFace
-} from './scanner'
 
 const size = 100;
 const dim = 3;
@@ -28,24 +9,34 @@ const moves = ["f", "F", "b", "B", "r", "R", "l", "L", "u", "U", "d", "D"];
 let listMoves = [];
 let autoanimation = false;
 let backwardMoves = false;
-let newMoves;
 
-let cubeState = [
-  frontFace, // front
-  rightFace, // right
-  upFace, // up
-  downFace, // down
-  leftFace, // left
-  posteriorFace // back
-].join('');
+let animating = false;
+let angle = 0;
+let clockwise = 1;
+let position;
+let rotateType = null;
+let index;
+
+let shuffleMoves = [];
+
+const cube = new Cube(Cube.fromString("UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB"));
+
+var buttonU;
+var buttonF;
+var buttonR;
+var buttonL;
+var buttonD;
+var buttonB;
+var buttonu;
+var buttonf;
+var buttonl;
+var buttonr;
+var buttond;
+var buttonb;
+
+var shuffleButton;
 
 let colors = [
-  // [255, 0, 0],    // red
-  // [255, 100, 0],  // orange
-  // [0, 200, 0],    // green
-  // [0, 0, 255],    // blue
-  // [255, 255, 0],  // yellow
-  // [255, 255, 255] // white
 
   [0, 255, 0], // green
   [0, 0, 255], // blue
@@ -106,95 +97,103 @@ let indexes = [
   },
 ];
 
-let animating = false;
-let angle = 0;
-let clockwise = 1;
-let position;
-let rotateType = null;
-let index;
-
-var buttonScramble;
-var buttonScramble2;
-var buttonSolve;
-var buttonSolve2;
-let sel;
-
-var buttonU;
-var buttonF;
-var buttonR;
-var buttonL;
-var buttonD;
-var buttonB;
-var buttonu;
-var buttonf;
-var buttonl;
-var buttonr;
-var buttond;
-var buttonb;
-
-let slider;
-
-let processedMovesToDo;
-let cube = new Cube(Cube.fromString("UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB"));
-
 function playU() {
   play("U");
   cube.move('U');
+  checkForSolvedCube();
 }
 
 function playD() {
   play("D");
   cube.move('D');
+  checkForSolvedCube();
 }
 
 function playR() {
   play("R");
   cube.move('R');
+  checkForSolvedCube();
 }
 
 function playL() {
   play("L");
   cube.move('L');
+  checkForSolvedCube();
 }
 
 function playF() {
   play("F");
   cube.move('F');
+  checkForSolvedCube();
 }
 
 function playB() {
   play("B");
   cube.move('B');
+  checkForSolvedCube();
 }
 
 function playu() {
   play("u");
   cube.move("U'");
+  checkForSolvedCube();
 }
 
 function playd() {
   play("d");
   cube.move("D'");
+  checkForSolvedCube();
 }
 
 function playr() {
   play("r");
   cube.move("R'");
+  checkForSolvedCube();
 }
 
 function playl() {
   play("l");
   cube.move("L'");
+  checkForSolvedCube();
 }
 
 function playf() {
   play("f");
   cube.move("F'");
+  checkForSolvedCube();
 }
 
 function playb() {
   play("b");
   cube.move("B'");
+  checkForSolvedCube();
+}
+
+async function checkForSolvedCube(){
+  if(isCubeSolved()){
+    await sleep(1000);
+    alert("Congratulations, you solved the cube!!");
+    buttonU.attribute("disabled", "");
+    buttonR.attribute("disabled", "");
+    buttonF.attribute("disabled", "");
+    buttonL.attribute("disabled", "");
+    buttonD.attribute("disabled", "");
+    buttonB.attribute("disabled", "");
+
+    buttonu.attribute("disabled", "");
+    buttonr.attribute("disabled", "");
+    buttonl.attribute("disabled", "");
+    buttonf.attribute("disabled", "");
+    buttond.attribute("disabled", "");
+    buttonb.attribute("disabled", "");
+  }
+}
+
+function isCubeSolved(){
+  if(cube.isSolved()){
+    return true;
+  }
+  return false;
 }
 
 export function setup() {
@@ -204,92 +203,73 @@ export function setup() {
   index = 0;
   cubes = [];
 
- buttonU = p.createButton("U");
+  randomShuffle();
+
+  shuffleButton = p.createButton("SHUFFLE");
+  shuffleButton.mousePressed(randomShuffle);
+  shuffleButton.position(1230, 855);
+  shuffleButton.size(100, 35);
+
+  buttonU = p.createButton("U");
   buttonU.mousePressed(playU);
-  buttonU.position(775, 100);
+  buttonU.position(1025, 125);
   buttonU.size(35, 35);
-  buttonU.attribute("disabled", "");
+  
 
   buttonD = p.createButton("D");
   buttonD.mousePressed(playD);
-  buttonD.position(875, 100);
+  buttonD.position(1125, 125);
   buttonD.size(35, 35);
-  buttonD.attribute("disabled", "");
 
   buttonR = p.createButton("R");
   buttonR.mousePressed(playR);
-  buttonR.position(975, 100);
+  buttonR.position(1225, 125);
   buttonR.size(35, 35);
-  buttonR.attribute("disabled", "");
 
   buttonL = p.createButton("L");
   buttonL.mousePressed(playL);
-  buttonL.position(1075, 100);
+  buttonL.position(1325, 125);
   buttonL.size(35, 35);
-  buttonL.attribute("disabled", "");
 
   buttonF = p.createButton("F");
   buttonF.mousePressed(playF);
-  buttonF.position(1175, 100);
+  buttonF.position(1425, 125);
   buttonF.size(35, 35);
-  buttonF.attribute("disabled", "");
 
   buttonB = p.createButton("B");
   buttonB.mousePressed(playB);
-  buttonB.position(1275, 100);
+  buttonB.position(1525, 125);
   buttonB.size(35, 35);
-  buttonB.attribute("disabled", "");
 
   buttonu = p.createButton("U'");
   buttonu.mousePressed(playu);
-  buttonu.position(775, 150);
+  buttonu.position(1025, 200);
   buttonu.size(35, 35);
-  buttonu.attribute("disabled", "");
 
   buttond = p.createButton("D'");
   buttond.mousePressed(playd);
-  buttond.position(875, 150);
+  buttond.position(1125, 200);
   buttond.size(35, 35);
-  buttond.attribute("disabled", "");
 
   buttonr = p.createButton("R'");
   buttonr.mousePressed(playr);
-  buttonr.position(975, 150);
+  buttonr.position(1225, 200);
   buttonr.size(35, 35);
-  buttonr.attribute("disabled", "");
 
   buttonl = p.createButton("L'");
   buttonl.mousePressed(playl);
-  buttonl.position(1075, 150);
+  buttonl.position(1325, 200);
   buttonl.size(35, 35);
-  buttonl.attribute("disabled", "");
 
   buttonf = p.createButton("F'");
   buttonf.mousePressed(playf);
-  buttonf.position(1175, 150);
+  buttonf.position(1425, 200);
   buttonf.size(35, 35);
-  buttonf.attribute("disabled", "");
 
   buttonb = p.createButton("B'");
   buttonb.mousePressed(playb);
-  buttonb.position(1275, 150);
+  buttonb.position(1525, 200);
   buttonb.size(35, 35);
-  buttonb.attribute("disabled", "");
-
-  slider = p.createSlider(1000, 5000, 2500, 500);
-  slider.position(1400, 100);
-  slider.style('width', '285px');
-
-  buttonScramble = p.createButton("SCRAMBLE");
-  buttonScramble.mousePressed(scrambleCube);
-  buttonScramble.position(1400, 150);
-  buttonScramble.size(135, 35);
-
-  buttonSolve = p.createButton("SOLVE");
-  buttonSolve.mousePressed(solveCube);
-  buttonSolve.position(1550, 150);
-  buttonSolve.attribute("disabled", "");
-  buttonSolve.size(135, 35);
 
 
   for (let i = 0; i < dim; i++) {
@@ -306,8 +286,18 @@ export function setup() {
   }
 }
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min); 
+}
+
 function processMoves(moves) {
-  let processedMoves = "";
+  let processedMoves = [];
   for (let i = 0; i < moves.length; i++) {
     if (
       moves[i] == "l" ||
@@ -318,201 +308,42 @@ function processMoves(moves) {
       moves[i] == "b"
     ) {
       if (moves[i] == "l") {
-        processedMoves = processedMoves + "L' ";
+        processedMoves.push("L'");
       }
       if (moves[i] == "r") {
-        processedMoves = processedMoves + "R' ";
+        processedMoves.push("R'");
       }
       if (moves[i] == "f") {
-        processedMoves = processedMoves + "F' ";
+        processedMoves.push("F'");
       }
       if (moves[i] == "d") {
-        processedMoves = processedMoves + "D' ";
+        processedMoves.push("D'");
       }
       if (moves[i] == "u") {
-        processedMoves = processedMoves + "U' ";
+        processedMoves.push("U'");
       }
       if (moves[i] == "b") {
-        processedMoves = processedMoves + "B' ";
+        processedMoves.push("B'");
       }
     } else {
-      processedMoves = processedMoves + moves[i] + " ";
+      processedMoves.push(moves[i]);
     }
   }
   return processedMoves;
 }
 
-function processMoves2(moves) {
-  let movesProcessed1 = [];
-  let movesProcessed = [];
-  let it = "";
-  for (let i = 0; i < moves.length; i++) {
-    if (moves[i] != " ") {
-      it += moves[i];
-    } else {
-      movesProcessed1.push(it);
-      it = "";
-    }
+async function randomShuffle(){
+  shuffleMoves = [];
+  for(let i = 0; i < 4; i++){
+    shuffleMoves.push(moves[getRandomInt(0, 11)]);
   }
-  movesProcessed1.push(it);
-  for (let i = 0; i < movesProcessed1.length; i++) {
-    switch (movesProcessed1[i]) {
-      case "Uprime":
-        movesProcessed.push("u");
-        break;
-      case "Fprime":
-        movesProcessed.push("f");
-        break;
-      case "Rprime":
-        movesProcessed.push("r");
-        break;
-      case "Lprime":
-        movesProcessed.push("l");
-        break;
-      case "Dprime":
-        movesProcessed.push("d");
-        break;
-      case "Bprime":
-        movesProcessed.push("b");
-        break;
-      case "uprime":
-        movesProcessed.push("u");
-        break;
-      case "fprime":
-        movesProcessed.push("f");
-        break;
-      case "rprime":
-        movesProcessed.push("r");
-        break;
-      case "lprime":
-        movesProcessed.push("l");
-        break;
-      case "dprime":
-        movesProcessed.push("d");
-        break;
-      case "bprime":
-        movesProcessed.push("b");
-        break;
-      case "U2":
-        movesProcessed.push("U");
-        movesProcessed.push("U");
-        break;
-      case "F2":
-        movesProcessed.push("F");
-        movesProcessed.push("F");
-        break;
-      case "R2":
-        movesProcessed.push("R");
-        movesProcessed.push("R");
-        break;
-      case "L2":
-        movesProcessed.push("L");
-        movesProcessed.push("L");
-        break;
-      case "D2":
-        movesProcessed.push("D");
-        movesProcessed.push("D");
-        break;
-      case "B2":
-        movesProcessed.push("B");
-        movesProcessed.push("B");
-        break;
-      default:
-        movesProcessed.push(movesProcessed1[i]);
-    }
-  }
-  return movesProcessed;
-}
-
-function processBackMoves(moves) {
-  let processedMoves = "",
-    counter = 0;
-  for (let i = 0; i < moves.length; i++) {
-    if (
-      (moves[i] == "L" && moves[i + 1] == "'") ||
-      (moves[i] == "R" && moves[i + 1] == "'") ||
-      (moves[i] == "F" && moves[i + 1] == "'") ||
-      (moves[i] == "D" && moves[i + 1] == "'") ||
-      (moves[i] == "U" && moves[i + 1] == "'") ||
-      (moves[i] == "B" && moves[i + 1] == "'")
-    ) {
-      if (moves[i] == "L") {
-        processedMoves = processedMoves + "l ";
-        counter = counter + 1;
-      }
-      if (moves[i] == "R") {
-        processedMoves = processedMoves + "r ";
-        counter = counter + 1;
-      }
-      if (moves[i] == "F") {
-        processedMoves = processedMoves + "f ";
-        counter = counter + 1;
-      }
-      if (moves[i] == "D") {
-        processedMoves = processedMoves + "d ";
-        counter = counter + 1;
-      }
-      if (moves[i] == "U") {
-        processedMoves = processedMoves + "u ";
-        counter = counter + 1;
-      }
-      if (moves[i] == "B") {
-        processedMoves = processedMoves + "b ";
-        counter = counter + 1;
-      }
-    } else if (
-      moves[i] == "L" ||
-      moves[i] == "R" ||
-      moves[i] == "F" ||
-      moves[i] == "D" ||
-      moves[i] == "U" ||
-      moves[i] == "B"
-    ) {
-      processedMoves = processedMoves + moves[i] + " ";
-      counter = counter + 1;
-    }
-  }
-  return { processedMoves, counter };
-}
-
-function scrambleCube() {
-  if (wholeCubeInLetters == "") {
-    alert("The scanned cube was not saved!");
-  } else {
-    buttonSolve.attribute("disabled", "");
-
-    cube = new Cube(Cube.fromString(wholeCubeInLetters));
-
-    buttonSolve.attribute("disabled", "");
-
-    Cube.initSolver();
-
-    newMoves = cube.solve();
-
-    console.log(cube.asString());
-
-    let newReformattedMoves = processMoves(newMoves);
-
-
-    let movesToDo = "";
-    movesToDo = Cube.inverse(newReformattedMoves);
-
-    let mv = processBackMoves(movesToDo);
-    processedMovesToDo = mv.processedMoves;
-
-    doScrambling();
-  }
-}
-
-async function doScrambling() {
-  console.log("Scrambling: ");
-  buttonScramble.attribute("disabled", "");
-  for (let i = 0; i < processedMovesToDo.length; i++) {
+  let shuffleMovesProcessed = processMoves(shuffleMoves);
+  for(let j = 0; j < shuffleMoves.length; j++){
+    cube.move(shuffleMovesProcessed[j]);
     angle = angle += 1.5;
     await sleep(100);
-    play(processedMovesToDo[i]);
+    play(shuffleMoves[j]);
   }
-  buttonSolve.removeAttribute("disabled");
 
   buttonU.removeAttribute("disabled");
   buttonF.removeAttribute("disabled");
@@ -520,6 +351,7 @@ async function doScrambling() {
   buttonL.removeAttribute("disabled");
   buttonD.removeAttribute("disabled");
   buttonB.removeAttribute("disabled");
+  
   buttonu.removeAttribute("disabled");
   buttonf.removeAttribute("disabled");
   buttonl.removeAttribute("disabled");
@@ -528,45 +360,11 @@ async function doScrambling() {
   buttonb.removeAttribute("disabled");
 }
 
-
-
-async function solveCube() {
-  newMoves = cube.solve();
-  let speedOfMovement = slider.value();
-  buttonSolve.attribute("disabled", "");
-  console.log("Solving: ");
-  for (let i = 0; i < newMoves.length; i++) {
-    await sleep(speedOfMovement);
-    play(newMoves[i]);
-  }
-  buttonScramble.removeAttribute("disabled");
-
-  buttonU.attribute("disabled", "");
-  buttonF.attribute("disabled", "");
-  buttonR.attribute("disabled", "");
-  buttonL.attribute("disabled", "");
-  buttonD.attribute("disabled", "");
-  buttonB.attribute("disabled", "");
-  buttonu.attribute("disabled", "");
-  buttonf.attribute("disabled", "");
-  buttonl.attribute("disabled", "");
-  buttonr.attribute("disabled", "");
-  buttond.attribute("disabled", "");
-  buttonb.attribute("disabled", "");
-}
-
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-function keyPressed(key) {
-  if (!autoanimation) {
-    play(key);
-  }
-}
+let c = 0;
 
 function play(key) {
-  console.log("key played: ", key);
+  console.log(key);
+  c += 1;
   if (!animating) {
     angle = 0;
     switch (key) {
@@ -660,6 +458,7 @@ export function draw() {
   p.background("#161616");
 
   p.orbitControl();
+
 
   if (animating) {
     if (autoanimation) {

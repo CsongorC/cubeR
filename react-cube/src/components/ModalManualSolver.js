@@ -26,15 +26,15 @@ export default function Modal() {
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
           <div className="modal-content">
-            <h2>Welcome to the Smart Solver page!</h2>
+            <h2>Welcome to the <b>Solve the Shuffle</b> page!</h2>
             <br/>
             <p>
-              In order to solve your Rubik's Cube, make sure you previously scanned it in the Scanning page! You can access the Scanning page using the menu in the left of your screen. 
-              You can adjust the animation speed with the slider.
+              Try to solve the shuffled cube using the algorithms you know! You can rotate the cube sides using the buttons on the top.
+              If you are not familiar with the notations, please visit the <b>To know</b> page first.
             </p>
             <br/>
             <p>
-              Keep it simple!
+              Happy cubing!
             </p>
             <AiIcons.AiOutlineClose style={style} className="close-modal" onClick={toggleModal}/>
           </div>

@@ -47,11 +47,7 @@ let downFace = "";
 
 let wholeCubeInLetters = "";
 
-export { wholeCubeInLetters };
-export { upFace, frontFace, leftFace, rightFace, posteriorFace, downFace };
-
 let buttonSaveFace;
-let buttonAnimate;
 let buttonClear;
 
 let currentFace = 0;
@@ -59,6 +55,40 @@ let currentFace = 0;
 export var isVisible = true;
 
 let cubieColors = new cubeColors();
+
+export { wholeCubeInLetters };
+export { upFace, frontFace, leftFace, rightFace, posteriorFace, downFace };
+
+export function setUpFace(faceString) {
+  upFace = faceString;
+}
+
+export function setLeftFace(faceString) {
+  leftFace = faceString;
+}
+
+export function setFrontFace(faceString) {
+  frontFace = faceString;
+}
+
+export function setRightFace(faceString) {
+  rightFace = faceString;
+}
+
+export function setPosteriorFace(faceString) {
+  posteriorFace = faceString;
+}
+
+export function setDownFace(faceString) {
+  downFace = faceString;
+}
+
+window.onresize = function () {
+  // assigns new values for width and height variables
+  let w = p.innerWidth;
+  let h = p.innerHeight;
+  console.log(w, h);
+};
 
 export function setup() {
   p.createCanvas(p.windowWidth, p.windowHeight);
@@ -77,7 +107,7 @@ export function setup() {
   buttonClear.position(1965, 670);
 
   buttonClear = p.createButton("CLEAR LAST");
-  //buttonClear.mousePressed(reDoFace);
+  buttonClear.mousePressed(clearLastFace);
   buttonClear.position(1948, 270);
 
   topColors = [
@@ -97,7 +127,7 @@ export function setup() {
     [255, 255, 255],
     [255, 255, 255],
     [255, 255, 255],
-    [255, 255, 255],
+    [255, 255, 0],
     [255, 255, 255],
     [255, 255, 255],
     [255, 255, 255],
@@ -109,7 +139,7 @@ export function setup() {
     [255, 255, 255],
     [255, 255, 255],
     [255, 255, 255],
-    [255, 255, 255],
+    [255, 0, 0],
     [255, 255, 255],
     [255, 255, 255],
     [255, 255, 255],
@@ -121,7 +151,7 @@ export function setup() {
     [255, 255, 255],
     [255, 255, 255],
     [255, 255, 255],
-    [255, 255, 255],
+    [255, 140, 0],
     [255, 255, 255],
     [255, 255, 255],
     [255, 255, 255],
@@ -133,7 +163,7 @@ export function setup() {
     [255, 255, 255],
     [255, 255, 255],
     [255, 255, 255],
-    [255, 255, 255],
+    [0, 255, 0],
     [255, 255, 255],
     [255, 255, 255],
     [255, 255, 255],
@@ -145,7 +175,7 @@ export function setup() {
     [255, 255, 255],
     [255, 255, 255],
     [255, 255, 255],
-    [255, 255, 255],
+    [0, 0, 255],
     [255, 255, 255],
     [255, 255, 255],
     [255, 255, 255],
@@ -153,7 +183,386 @@ export function setup() {
   ];
 }
 
-function saveCube() {
+function clearLastFace() {
+  switch (currentFace) {
+    case 0:
+      console.log("clearLastFace() called at case: 0");
+      highlighterX = 1950;
+      highlighterY = 400;
+      cubieColors.decreaseCorner(
+        bottomColors[0][0],
+        bottomColors[0][1],
+        bottomColors[0][2]
+      );
+      cubieColors.decreaseEdge(
+        bottomColors[3][0],
+        bottomColors[3][1],
+        bottomColors[3][2]
+      );
+      cubieColors.decreaseCorner(
+        bottomColors[6][0],
+        bottomColors[6][1],
+        bottomColors[6][2]
+      );
+      cubieColors.decreaseEdge(
+        bottomColors[1][0],
+        bottomColors[1][1],
+        bottomColors[1][2]
+      );
+      cubieColors.decreaseCenter(
+        bottomColors[4][0],
+        bottomColors[4][1],
+        bottomColors[4][2]
+      );
+      cubieColors.decreaseEdge(
+        bottomColors[7][0],
+        bottomColors[7][1],
+        bottomColors[7][2]
+      );
+      cubieColors.decreaseCorner(
+        bottomColors[2][0],
+        bottomColors[2][1],
+        bottomColors[2][2]
+      );
+      cubieColors.decreaseEdge(
+        bottomColors[5][0],
+        bottomColors[5][1],
+        bottomColors[5][2]
+      );
+      cubieColors.decreaseCorner(
+        bottomColors[8][0],
+        bottomColors[8][1],
+        bottomColors[8][2]
+      );
+      bottomColors = [
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 0],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+      ];
+      currentFace = 5;
+      break;
+    case 1:
+      console.log("clearLastFace() called at case: 1");
+      highlighterX = 1950;
+      highlighterY = 250;
+      cubieColors.decreaseCorner(
+        topColors[0][0],
+        topColors[0][1],
+        topColors[0][2]
+      );
+      cubieColors.decreaseEdge(
+        topColors[3][0],
+        topColors[3][1],
+        topColors[3][2]
+      );
+      cubieColors.decreaseCorner(
+        topColors[6][0],
+        topColors[6][1],
+        topColors[6][2]
+      );
+      cubieColors.decreaseEdge(
+        topColors[1][0],
+        topColors[1][1],
+        topColors[1][2]
+      );
+      cubieColors.decreaseCenter(
+        topColors[4][0],
+        topColors[4][1],
+        topColors[4][2]
+      );
+      cubieColors.decreaseEdge(
+        topColors[7][0],
+        topColors[7][1],
+        topColors[7][2]
+      );
+      cubieColors.decreaseCorner(
+        topColors[2][0],
+        topColors[2][1],
+        topColors[2][2]
+      );
+      cubieColors.decreaseEdge(
+        topColors[5][0],
+        topColors[5][1],
+        topColors[5][2]
+      );
+      cubieColors.decreaseCorner(
+        topColors[8][0],
+        topColors[8][1],
+        topColors[8][2]
+      );
+      topColors = [
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+      ];
+      currentFace = 0;
+      break;
+    case 2:
+      console.log("clearLastFace() called at case: 2");
+      highlighterX = 1950;
+      highlighterY = 325;
+      cubieColors.decreaseCorner(
+        frontColors[0][0],
+        frontColors[0][1],
+        frontColors[0][2]
+      );
+      cubieColors.decreaseEdge(
+        frontColors[3][0],
+        frontColors[3][1],
+        frontColors[3][2]
+      );
+      cubieColors.decreaseCorner(
+        frontColors[6][0],
+        frontColors[6][1],
+        frontColors[6][2]
+      );
+      cubieColors.decreaseEdge(
+        frontColors[1][0],
+        frontColors[1][1],
+        frontColors[1][2]
+      );
+      cubieColors.decreaseCenter(
+        frontColors[4][0],
+        frontColors[4][1],
+        frontColors[4][2]
+      );
+      cubieColors.decreaseEdge(
+        frontColors[7][0],
+        frontColors[7][1],
+        frontColors[7][2]
+      );
+      cubieColors.decreaseCorner(
+        frontColors[2][0],
+        frontColors[2][1],
+        frontColors[2][2]
+      );
+      cubieColors.decreaseEdge(
+        frontColors[5][0],
+        frontColors[5][1],
+        frontColors[5][2]
+      );
+      cubieColors.decreaseCorner(
+        frontColors[8][0],
+        frontColors[8][1],
+        frontColors[8][2]
+      );
+      frontColors = [
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        [0, 255, 0],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+      ];
+      currentFace = 1;
+      break;
+    case 3:
+      console.log("clearLastFace() called at case: 3");
+      highlighterX = 1875;
+      highlighterY = 325;
+      cubieColors.decreaseCorner(
+        leftColors[0][0],
+        leftColors[0][1],
+        leftColors[0][2]
+      );
+      cubieColors.decreaseEdge(
+        leftColors[3][0],
+        leftColors[3][1],
+        leftColors[3][2]
+      );
+      cubieColors.decreaseCorner(
+        leftColors[6][0],
+        leftColors[6][1],
+        leftColors[6][2]
+      );
+      cubieColors.decreaseEdge(
+        leftColors[1][0],
+        leftColors[1][1],
+        leftColors[1][2]
+      );
+      cubieColors.decreaseCenter(
+        leftColors[4][0],
+        leftColors[4][1],
+        leftColors[4][2]
+      );
+      cubieColors.decreaseEdge(
+        leftColors[7][0],
+        leftColors[7][1],
+        leftColors[7][2]
+      );
+      cubieColors.decreaseCorner(
+        leftColors[2][0],
+        leftColors[2][1],
+        leftColors[2][2]
+      );
+      cubieColors.decreaseEdge(
+        leftColors[5][0],
+        leftColors[5][1],
+        leftColors[5][2]
+      );
+      cubieColors.decreaseCorner(
+        leftColors[8][0],
+        leftColors[8][1],
+        leftColors[8][2]
+      );
+      leftColors = [
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 140, 0],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+      ];
+      currentFace = 2;
+      break;
+    case 4:
+      highlighterX = 2025;
+      highlighterY = 325;
+      cubieColors.decreaseCorner(
+        rightColors[0][0],
+        rightColors[0][1],
+        rightColors[0][2]
+      );
+      cubieColors.decreaseEdge(
+        rightColors[3][0],
+        rightColors[3][1],
+        rightColors[3][2]
+      );
+      cubieColors.decreaseCorner(
+        rightColors[6][0],
+        rightColors[6][1],
+        rightColors[6][2]
+      );
+      cubieColors.decreaseEdge(
+        rightColors[1][0],
+        rightColors[1][1],
+        rightColors[1][2]
+      );
+      cubieColors.decreaseCenter(
+        rightColors[4][0],
+        rightColors[4][1],
+        rightColors[4][2]
+      );
+      cubieColors.decreaseEdge(
+        rightColors[7][0],
+        rightColors[7][1],
+        rightColors[7][2]
+      );
+      cubieColors.decreaseCorner(
+        rightColors[2][0],
+        rightColors[2][1],
+        rightColors[2][2]
+      );
+      cubieColors.decreaseEdge(
+        rightColors[5][0],
+        rightColors[5][1],
+        rightColors[5][2]
+      );
+      cubieColors.decreaseCorner(
+        rightColors[8][0],
+        rightColors[8][1],
+        rightColors[8][2]
+      );
+      rightColors = [
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 0, 0],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+      ];
+      currentFace = 3;
+      break;
+    case 5:
+      highlighterX = 1950;
+      highlighterY = 475;
+      cubieColors.decreaseCorner(
+        posteriorColors[0][0],
+        posteriorColors[0][1],
+        posteriorColors[0][2]
+      );
+      cubieColors.decreaseEdge(
+        posteriorColors[3][0],
+        posteriorColors[3][1],
+        posteriorColors[3][2]
+      );
+      cubieColors.decreaseCorner(
+        posteriorColors[6][0],
+        posteriorColors[6][1],
+        posteriorColors[6][2]
+      );
+      cubieColors.decreaseEdge(
+        posteriorColors[1][0],
+        posteriorColors[1][1],
+        posteriorColors[1][2]
+      );
+      cubieColors.decreaseCenter(
+        posteriorColors[4][0],
+        posteriorColors[4][1],
+        posteriorColors[4][2]
+      );
+      cubieColors.decreaseEdge(
+        posteriorColors[7][0],
+        posteriorColors[7][1],
+        posteriorColors[7][2]
+      );
+      cubieColors.decreaseCorner(
+        posteriorColors[2][0],
+        posteriorColors[2][1],
+        posteriorColors[2][2]
+      );
+      cubieColors.decreaseEdge(
+        posteriorColors[5][0],
+        posteriorColors[5][1],
+        posteriorColors[5][2]
+      );
+      cubieColors.decreaseCorner(
+        posteriorColors[8][0],
+        posteriorColors[8][1],
+        posteriorColors[8][2]
+      );
+      posteriorColors = [
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        [0, 0, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+      ];
+      currentFace = 4;
+      break;
+  }
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function saveCube() {
   upFace = colorToLetterConverter(topColors);
   frontFace = colorToLetterConverter(frontColors);
   leftFace = colorToLetterConverter(leftColors);
@@ -172,7 +581,8 @@ function saveCube() {
     upFace + rightFace + frontFace + downFace + leftFace + posteriorFace;
   console.log(wholeCubeInLetters);
 
-  alert('Cube saved successfully.', 2000);
+  await sleep(1000);
+  alert("Cube saved successfully.");
 }
 
 function clearCube() {
@@ -348,217 +758,256 @@ function checkForErrorInFace() {
 function saveColors() {
   if (checkForErrorInFace()) {
     if (currentFace == 0) {
-      if (
-        cubieColors.increaseCorner(cl1[0], cl1[1], cl1[2]) &&
-        cubieColors.increaseEdge(cl2[0], cl2[1], cl2[2]) &&
-        cubieColors.increaseCorner(cl3[0], cl3[1], cl3[2]) &&
-        cubieColors.increaseEdge(cl4[0], cl4[1], cl4[2]) &&
-        cubieColors.increaseCenter(cl5[0], cl5[1], cl5[2]) &&
-        cubieColors.increaseEdge(cl6[0], cl6[1], cl6[2]) &&
-        cubieColors.increaseCorner(cl7[0], cl7[1], cl7[2]) &&
-        cubieColors.increaseEdge(cl8[0], cl8[1], cl8[2]) &&
-        cubieColors.increaseCorner(cl9[0], cl9[1], cl9[2])
-      ) {
-        cubieColors.doIncreaseCorner(cl1[0], cl1[1], cl1[2]);
-        cubieColors.doIncreaseEdge(cl2[0], cl2[1], cl2[2]);
-        cubieColors.doIncreaseCorner(cl3[0], cl3[1], cl3[2]);
-        cubieColors.doIncreaseEdge(cl4[0], cl4[1], cl4[2]);
-        cubieColors.doIncreaseCenter(cl5[0], cl5[1], cl5[2]);
-        cubieColors.doIncreaseEdge(cl6[0], cl6[1], cl6[2]);
-        cubieColors.doIncreaseCorner(cl7[0], cl7[1], cl7[2]);
-        cubieColors.doIncreaseEdge(cl8[0], cl8[1], cl8[2]);
-        cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2]);
+      if (cl5[0] == 255 && cl5[1] == 255 && cl5[2] == 255) {
+        if (
+          cubieColors.increaseCorner(cl1[0], cl1[1], cl1[2]) &&
+          cubieColors.increaseEdge(cl2[0], cl2[1], cl2[2]) &&
+          cubieColors.increaseCorner(cl3[0], cl3[1], cl3[2]) &&
+          cubieColors.increaseEdge(cl4[0], cl4[1], cl4[2]) &&
+          cubieColors.increaseCenter(cl5[0], cl5[1], cl5[2]) &&
+          cubieColors.increaseEdge(cl6[0], cl6[1], cl6[2]) &&
+          cubieColors.increaseCorner(cl7[0], cl7[1], cl7[2]) &&
+          cubieColors.increaseEdge(cl8[0], cl8[1], cl8[2]) &&
+          cubieColors.increaseCorner(cl9[0], cl9[1], cl9[2])
+        ) {
+          cubieColors.doIncreaseCorner(cl1[0], cl1[1], cl1[2]);
+          cubieColors.doIncreaseEdge(cl2[0], cl2[1], cl2[2]);
+          cubieColors.doIncreaseCorner(cl3[0], cl3[1], cl3[2]);
+          cubieColors.doIncreaseEdge(cl4[0], cl4[1], cl4[2]);
+          cubieColors.doIncreaseCenter(cl5[0], cl5[1], cl5[2]);
+          cubieColors.doIncreaseEdge(cl6[0], cl6[1], cl6[2]);
+          cubieColors.doIncreaseCorner(cl7[0], cl7[1], cl7[2]);
+          cubieColors.doIncreaseEdge(cl8[0], cl8[1], cl8[2]);
+          cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2]);
 
-        topColors[0] = [cl1[0], cl1[1], cl1[2]];
-        topColors[3] = [cl2[0], cl2[1], cl2[2]];
-        topColors[6] = [cl3[0], cl3[1], cl3[2]];
-        topColors[1] = [cl4[0], cl4[1], cl4[2]];
-        topColors[4] = [cl5[0], cl5[1], cl5[2]];
-        topColors[7] = [cl6[0], cl6[1], cl6[2]];
-        topColors[2] = [cl7[0], cl7[1], cl7[2]];
-        topColors[5] = [cl8[0], cl8[1], cl8[2]];
-        topColors[8] = [cl9[0], cl9[1], cl9[2]];
+          topColors[0] = [cl1[0], cl1[1], cl1[2]];
+          topColors[3] = [cl2[0], cl2[1], cl2[2]];
+          topColors[6] = [cl3[0], cl3[1], cl3[2]];
+          topColors[1] = [cl4[0], cl4[1], cl4[2]];
+          topColors[4] = [cl5[0], cl5[1], cl5[2]];
+          topColors[7] = [cl6[0], cl6[1], cl6[2]];
+          topColors[2] = [cl7[0], cl7[1], cl7[2]];
+          topColors[5] = [cl8[0], cl8[1], cl8[2]];
+          topColors[8] = [cl9[0], cl9[1], cl9[2]];
+        } else {
+          currentFace = currentFace - 1;
+          alert("Cannot save cube, incorrect face!");
+        }
       } else {
-        alert("Cannot save cube, incorresct face!");
+        currentFace = currentFace - 1;
+        alert("Please scan the White face!");
       }
     }
     if (currentFace == 1) {
-      if (
-        cubieColors.increaseCorner(cl1[0], cl1[1], cl1[2]) &&
-        cubieColors.increaseEdge(cl2[0], cl2[1], cl2[2]) &&
-        cubieColors.increaseCorner(cl3[0], cl3[1], cl3[2]) &&
-        cubieColors.increaseEdge(cl4[0], cl4[1], cl4[2]) &&
-        cubieColors.increaseCenter(cl5[0], cl5[1], cl5[2]) &&
-        cubieColors.increaseEdge(cl6[0], cl6[1], cl6[2]) &&
-        cubieColors.increaseCorner(cl7[0], cl7[1], cl7[2]) &&
-        cubieColors.increaseEdge(cl8[0], cl8[1], cl8[2]) &&
-        cubieColors.increaseCorner(cl9[0], cl9[1], cl9[2])
-      ) {
-        cubieColors.doIncreaseCorner(cl1[0], cl1[1], cl1[2]);
-        cubieColors.doIncreaseEdge(cl2[0], cl2[1], cl2[2]);
-        cubieColors.doIncreaseCorner(cl3[0], cl3[1], cl3[2]);
-        cubieColors.doIncreaseEdge(cl4[0], cl4[1], cl4[2]);
-        cubieColors.doIncreaseCenter(cl5[0], cl5[1], cl5[2]);
-        cubieColors.doIncreaseEdge(cl6[0], cl6[1], cl6[2]);
-        cubieColors.doIncreaseCorner(cl7[0], cl7[1], cl7[2]);
-        cubieColors.doIncreaseEdge(cl8[0], cl8[1], cl8[2]);
-        cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2]);
+      if (cl5[0] == 0 && cl5[1] == 255 && cl5[2] == 0) {
+        if (
+          cubieColors.increaseCorner(cl1[0], cl1[1], cl1[2]) &&
+          cubieColors.increaseEdge(cl2[0], cl2[1], cl2[2]) &&
+          cubieColors.increaseCorner(cl3[0], cl3[1], cl3[2]) &&
+          cubieColors.increaseEdge(cl4[0], cl4[1], cl4[2]) &&
+          cubieColors.increaseCenter(cl5[0], cl5[1], cl5[2]) &&
+          cubieColors.increaseEdge(cl6[0], cl6[1], cl6[2]) &&
+          cubieColors.increaseCorner(cl7[0], cl7[1], cl7[2]) &&
+          cubieColors.increaseEdge(cl8[0], cl8[1], cl8[2]) &&
+          cubieColors.increaseCorner(cl9[0], cl9[1], cl9[2])
+        ) {
+          cubieColors.doIncreaseCorner(cl1[0], cl1[1], cl1[2]);
+          cubieColors.doIncreaseEdge(cl2[0], cl2[1], cl2[2]);
+          cubieColors.doIncreaseCorner(cl3[0], cl3[1], cl3[2]);
+          cubieColors.doIncreaseEdge(cl4[0], cl4[1], cl4[2]);
+          cubieColors.doIncreaseCenter(cl5[0], cl5[1], cl5[2]);
+          cubieColors.doIncreaseEdge(cl6[0], cl6[1], cl6[2]);
+          cubieColors.doIncreaseCorner(cl7[0], cl7[1], cl7[2]);
+          cubieColors.doIncreaseEdge(cl8[0], cl8[1], cl8[2]);
+          cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2]);
 
-        frontColors[0] = [cl1[0], cl1[1], cl1[2]];
-        frontColors[3] = [cl2[0], cl2[1], cl2[2]];
-        frontColors[6] = [cl3[0], cl3[1], cl3[2]];
-        frontColors[1] = [cl4[0], cl4[1], cl4[2]];
-        frontColors[4] = [cl5[0], cl5[1], cl5[2]];
-        frontColors[7] = [cl6[0], cl6[1], cl6[2]];
-        frontColors[2] = [cl7[0], cl7[1], cl7[2]];
-        frontColors[5] = [cl8[0], cl8[1], cl8[2]];
-        frontColors[8] = [cl9[0], cl9[1], cl9[2]];
+          frontColors[0] = [cl1[0], cl1[1], cl1[2]];
+          frontColors[3] = [cl2[0], cl2[1], cl2[2]];
+          frontColors[6] = [cl3[0], cl3[1], cl3[2]];
+          frontColors[1] = [cl4[0], cl4[1], cl4[2]];
+          frontColors[4] = [cl5[0], cl5[1], cl5[2]];
+          frontColors[7] = [cl6[0], cl6[1], cl6[2]];
+          frontColors[2] = [cl7[0], cl7[1], cl7[2]];
+          frontColors[5] = [cl8[0], cl8[1], cl8[2]];
+          frontColors[8] = [cl9[0], cl9[1], cl9[2]];
+        } else {
+          currentFace = currentFace - 1;
+          alert("Cannot save cube, incorrect face!");
+        }
       } else {
-        alert("Cannot save cube, incorresct face!");
+        currentFace = currentFace - 1;
+        alert("Please scan the green face!");
       }
     }
     if (currentFace == 2) {
-      if (
-        cubieColors.increaseCorner(cl1[0], cl1[1], cl1[2]) &&
-        cubieColors.increaseEdge(cl2[0], cl2[1], cl2[2]) &&
-        cubieColors.increaseCorner(cl3[0], cl3[1], cl3[2]) &&
-        cubieColors.increaseEdge(cl4[0], cl4[1], cl4[2]) &&
-        cubieColors.increaseCenter(cl5[0], cl5[1], cl5[2]) &&
-        cubieColors.increaseEdge(cl6[0], cl6[1], cl6[2]) &&
-        cubieColors.increaseCorner(cl7[0], cl7[1], cl7[2]) &&
-        cubieColors.increaseEdge(cl8[0], cl8[1], cl8[2]) &&
-        cubieColors.increaseCorner(cl9[0], cl9[1], cl9[2])
-      ) {
-        cubieColors.doIncreaseCorner(cl1[0], cl1[1], cl1[2]);
-        cubieColors.doIncreaseEdge(cl2[0], cl2[1], cl2[2]);
-        cubieColors.doIncreaseCorner(cl3[0], cl3[1], cl3[2]);
-        cubieColors.doIncreaseEdge(cl4[0], cl4[1], cl4[2]);
-        cubieColors.doIncreaseCenter(cl5[0], cl5[1], cl5[2]);
-        cubieColors.doIncreaseEdge(cl6[0], cl6[1], cl6[2]);
-        cubieColors.doIncreaseCorner(cl7[0], cl7[1], cl7[2]);
-        cubieColors.doIncreaseEdge(cl8[0], cl8[1], cl8[2]);
-        cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2]);
+      if (cl5[0] == 255 && cl5[1] == 140 && cl5[2] == 0) {
+        if (
+          cubieColors.increaseCorner(cl1[0], cl1[1], cl1[2]) &&
+          cubieColors.increaseEdge(cl2[0], cl2[1], cl2[2]) &&
+          cubieColors.increaseCorner(cl3[0], cl3[1], cl3[2]) &&
+          cubieColors.increaseEdge(cl4[0], cl4[1], cl4[2]) &&
+          cubieColors.increaseCenter(cl5[0], cl5[1], cl5[2]) &&
+          cubieColors.increaseEdge(cl6[0], cl6[1], cl6[2]) &&
+          cubieColors.increaseCorner(cl7[0], cl7[1], cl7[2]) &&
+          cubieColors.increaseEdge(cl8[0], cl8[1], cl8[2]) &&
+          cubieColors.increaseCorner(cl9[0], cl9[1], cl9[2])
+        ) {
+          cubieColors.doIncreaseCorner(cl1[0], cl1[1], cl1[2]);
+          cubieColors.doIncreaseEdge(cl2[0], cl2[1], cl2[2]);
+          cubieColors.doIncreaseCorner(cl3[0], cl3[1], cl3[2]);
+          cubieColors.doIncreaseEdge(cl4[0], cl4[1], cl4[2]);
+          cubieColors.doIncreaseCenter(cl5[0], cl5[1], cl5[2]);
+          cubieColors.doIncreaseEdge(cl6[0], cl6[1], cl6[2]);
+          cubieColors.doIncreaseCorner(cl7[0], cl7[1], cl7[2]);
+          cubieColors.doIncreaseEdge(cl8[0], cl8[1], cl8[2]);
+          cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2]);
 
-        leftColors[0] = [cl1[0], cl1[1], cl1[2]];
-        leftColors[3] = [cl2[0], cl2[1], cl2[2]];
-        leftColors[6] = [cl3[0], cl3[1], cl3[2]];
-        leftColors[1] = [cl4[0], cl4[1], cl4[2]];
-        leftColors[4] = [cl5[0], cl5[1], cl5[2]];
-        leftColors[7] = [cl6[0], cl6[1], cl6[2]];
-        leftColors[2] = [cl7[0], cl7[1], cl7[2]];
-        leftColors[5] = [cl8[0], cl8[1], cl8[2]];
-        leftColors[8] = [cl9[0], cl9[1], cl9[2]];
+          leftColors[0] = [cl1[0], cl1[1], cl1[2]];
+          leftColors[3] = [cl2[0], cl2[1], cl2[2]];
+          leftColors[6] = [cl3[0], cl3[1], cl3[2]];
+          leftColors[1] = [cl4[0], cl4[1], cl4[2]];
+          leftColors[4] = [cl5[0], cl5[1], cl5[2]];
+          leftColors[7] = [cl6[0], cl6[1], cl6[2]];
+          leftColors[2] = [cl7[0], cl7[1], cl7[2]];
+          leftColors[5] = [cl8[0], cl8[1], cl8[2]];
+          leftColors[8] = [cl9[0], cl9[1], cl9[2]];
+        } else {
+          currentFace = currentFace - 1;
+          alert("Cannot save cube, incorrect face!");
+        }
       } else {
-        alert("Cannot save cube, incorresct face!");
+        currentFace = currentFace - 1;
+        alert("Please scan the Orange face!");
       }
     }
     if (currentFace == 3) {
-      if (
-        cubieColors.increaseCorner(cl1[0], cl1[1], cl1[2]) &&
-        cubieColors.increaseEdge(cl2[0], cl2[1], cl2[2]) &&
-        cubieColors.increaseCorner(cl3[0], cl3[1], cl3[2]) &&
-        cubieColors.increaseEdge(cl4[0], cl4[1], cl4[2]) &&
-        cubieColors.increaseCenter(cl5[0], cl5[1], cl5[2]) &&
-        cubieColors.increaseEdge(cl6[0], cl6[1], cl6[2]) &&
-        cubieColors.increaseCorner(cl7[0], cl7[1], cl7[2]) &&
-        cubieColors.increaseEdge(cl8[0], cl8[1], cl8[2]) &&
-        cubieColors.increaseCorner(cl9[0], cl9[1], cl9[2])
-      ) {
-        cubieColors.doIncreaseCorner(cl1[0], cl1[1], cl1[2]);
-        cubieColors.doIncreaseEdge(cl2[0], cl2[1], cl2[2]);
-        cubieColors.doIncreaseCorner(cl3[0], cl3[1], cl3[2]);
-        cubieColors.doIncreaseEdge(cl4[0], cl4[1], cl4[2]);
-        cubieColors.doIncreaseCenter(cl5[0], cl5[1], cl5[2]);
-        cubieColors.doIncreaseEdge(cl6[0], cl6[1], cl6[2]);
-        cubieColors.doIncreaseCorner(cl7[0], cl7[1], cl7[2]);
-        cubieColors.doIncreaseEdge(cl8[0], cl8[1], cl8[2]);
-        cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2]);
+      if (cl5[0] == 255 && cl5[1] == 0 && cl5[2] == 0) {
+        if (
+          cubieColors.increaseCorner(cl1[0], cl1[1], cl1[2]) &&
+          cubieColors.increaseEdge(cl2[0], cl2[1], cl2[2]) &&
+          cubieColors.increaseCorner(cl3[0], cl3[1], cl3[2]) &&
+          cubieColors.increaseEdge(cl4[0], cl4[1], cl4[2]) &&
+          cubieColors.increaseCenter(cl5[0], cl5[1], cl5[2]) &&
+          cubieColors.increaseEdge(cl6[0], cl6[1], cl6[2]) &&
+          cubieColors.increaseCorner(cl7[0], cl7[1], cl7[2]) &&
+          cubieColors.increaseEdge(cl8[0], cl8[1], cl8[2]) &&
+          cubieColors.increaseCorner(cl9[0], cl9[1], cl9[2])
+        ) {
+          cubieColors.doIncreaseCorner(cl1[0], cl1[1], cl1[2]);
+          cubieColors.doIncreaseEdge(cl2[0], cl2[1], cl2[2]);
+          cubieColors.doIncreaseCorner(cl3[0], cl3[1], cl3[2]);
+          cubieColors.doIncreaseEdge(cl4[0], cl4[1], cl4[2]);
+          cubieColors.doIncreaseCenter(cl5[0], cl5[1], cl5[2]);
+          cubieColors.doIncreaseEdge(cl6[0], cl6[1], cl6[2]);
+          cubieColors.doIncreaseCorner(cl7[0], cl7[1], cl7[2]);
+          cubieColors.doIncreaseEdge(cl8[0], cl8[1], cl8[2]);
+          cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2]);
 
-        rightColors[0] = [cl1[0], cl1[1], cl1[2]];
-        rightColors[3] = [cl2[0], cl2[1], cl2[2]];
-        rightColors[6] = [cl3[0], cl3[1], cl3[2]];
-        rightColors[1] = [cl4[0], cl4[1], cl4[2]];
-        rightColors[4] = [cl5[0], cl5[1], cl5[2]];
-        rightColors[7] = [cl6[0], cl6[1], cl6[2]];
-        rightColors[2] = [cl7[0], cl7[1], cl7[2]];
-        rightColors[5] = [cl8[0], cl8[1], cl8[2]];
-        rightColors[8] = [cl9[0], cl9[1], cl9[2]];
+          rightColors[0] = [cl1[0], cl1[1], cl1[2]];
+          rightColors[3] = [cl2[0], cl2[1], cl2[2]];
+          rightColors[6] = [cl3[0], cl3[1], cl3[2]];
+          rightColors[1] = [cl4[0], cl4[1], cl4[2]];
+          rightColors[4] = [cl5[0], cl5[1], cl5[2]];
+          rightColors[7] = [cl6[0], cl6[1], cl6[2]];
+          rightColors[2] = [cl7[0], cl7[1], cl7[2]];
+          rightColors[5] = [cl8[0], cl8[1], cl8[2]];
+          rightColors[8] = [cl9[0], cl9[1], cl9[2]];
+        } else {
+          currentFace = currentFace - 1;
+          alert("Cannot save cube, incorrect face!");
+        }
       } else {
-        alert("Cannot save cube, incorresct face!");
+        currentFace = currentFace - 1;
+        alert("Please scan the Red face!");
       }
     }
     if (currentFace == 4) {
-      if (
-        cubieColors.increaseCorner(cl1[0], cl1[1], cl1[2]) &&
-        cubieColors.increaseEdge(cl2[0], cl2[1], cl2[2]) &&
-        cubieColors.increaseCorner(cl3[0], cl3[1], cl3[2]) &&
-        cubieColors.increaseEdge(cl4[0], cl4[1], cl4[2]) &&
-        cubieColors.increaseCenter(cl5[0], cl5[1], cl5[2]) &&
-        cubieColors.increaseEdge(cl6[0], cl6[1], cl6[2]) &&
-        cubieColors.increaseCorner(cl7[0], cl7[1], cl7[2]) &&
-        cubieColors.increaseEdge(cl8[0], cl8[1], cl8[2]) &&
-        cubieColors.increaseCorner(cl9[0], cl9[1], cl9[2])
-      ) {
-        cubieColors.doIncreaseCorner(cl1[0], cl1[1], cl1[2]);
-        cubieColors.doIncreaseEdge(cl2[0], cl2[1], cl2[2]);
-        cubieColors.doIncreaseCorner(cl3[0], cl3[1], cl3[2]);
-        cubieColors.doIncreaseEdge(cl4[0], cl4[1], cl4[2]);
-        cubieColors.doIncreaseCenter(cl5[0], cl5[1], cl5[2]);
-        cubieColors.doIncreaseEdge(cl6[0], cl6[1], cl6[2]);
-        cubieColors.doIncreaseCorner(cl7[0], cl7[1], cl7[2]);
-        cubieColors.doIncreaseEdge(cl8[0], cl8[1], cl8[2]);
-        cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2]);
+      if (cl5[0] == 0 && cl5[1] == 0 && cl5[2] == 255) {
+        if (
+          cubieColors.increaseCorner(cl1[0], cl1[1], cl1[2]) &&
+          cubieColors.increaseEdge(cl2[0], cl2[1], cl2[2]) &&
+          cubieColors.increaseCorner(cl3[0], cl3[1], cl3[2]) &&
+          cubieColors.increaseEdge(cl4[0], cl4[1], cl4[2]) &&
+          cubieColors.increaseCenter(cl5[0], cl5[1], cl5[2]) &&
+          cubieColors.increaseEdge(cl6[0], cl6[1], cl6[2]) &&
+          cubieColors.increaseCorner(cl7[0], cl7[1], cl7[2]) &&
+          cubieColors.increaseEdge(cl8[0], cl8[1], cl8[2]) &&
+          cubieColors.increaseCorner(cl9[0], cl9[1], cl9[2])
+        ) {
+          cubieColors.doIncreaseCorner(cl1[0], cl1[1], cl1[2]);
+          cubieColors.doIncreaseEdge(cl2[0], cl2[1], cl2[2]);
+          cubieColors.doIncreaseCorner(cl3[0], cl3[1], cl3[2]);
+          cubieColors.doIncreaseEdge(cl4[0], cl4[1], cl4[2]);
+          cubieColors.doIncreaseCenter(cl5[0], cl5[1], cl5[2]);
+          cubieColors.doIncreaseEdge(cl6[0], cl6[1], cl6[2]);
+          cubieColors.doIncreaseCorner(cl7[0], cl7[1], cl7[2]);
+          cubieColors.doIncreaseEdge(cl8[0], cl8[1], cl8[2]);
+          cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2]);
 
-        posteriorColors[0] = [cl1[0], cl1[1], cl1[2]];
-        posteriorColors[3] = [cl2[0], cl2[1], cl2[2]];
-        posteriorColors[6] = [cl3[0], cl3[1], cl3[2]];
-        posteriorColors[1] = [cl4[0], cl4[1], cl4[2]];
-        posteriorColors[4] = [cl5[0], cl5[1], cl5[2]];
-        posteriorColors[7] = [cl6[0], cl6[1], cl6[2]];
-        posteriorColors[2] = [cl7[0], cl7[1], cl7[2]];
-        posteriorColors[5] = [cl8[0], cl8[1], cl8[2]];
-        posteriorColors[8] = [cl9[0], cl9[1], cl9[2]];
+          posteriorColors[0] = [cl1[0], cl1[1], cl1[2]];
+          posteriorColors[3] = [cl2[0], cl2[1], cl2[2]];
+          posteriorColors[6] = [cl3[0], cl3[1], cl3[2]];
+          posteriorColors[1] = [cl4[0], cl4[1], cl4[2]];
+          posteriorColors[4] = [cl5[0], cl5[1], cl5[2]];
+          posteriorColors[7] = [cl6[0], cl6[1], cl6[2]];
+          posteriorColors[2] = [cl7[0], cl7[1], cl7[2]];
+          posteriorColors[5] = [cl8[0], cl8[1], cl8[2]];
+          posteriorColors[8] = [cl9[0], cl9[1], cl9[2]];
+        } else {
+          currentFace = currentFace - 1;
+          alert("Cannot save cube, incorrect face!");
+        }
       } else {
-        alert("Cannot save cube, incorrect face!");
+        currentFace = currentFace - 1;
+        alert("Please scan the Blue face!");
       }
     }
     if (currentFace == 5) {
-      if (
-        cubieColors.increaseCorner(cl1[0], cl1[1], cl1[2]) &&
-        cubieColors.increaseEdge(cl2[0], cl2[1], cl2[2]) &&
-        cubieColors.increaseCorner(cl3[0], cl3[1], cl3[2]) &&
-        cubieColors.increaseEdge(cl4[0], cl4[1], cl4[2]) &&
-        cubieColors.increaseCenter(cl5[0], cl5[1], cl5[2]) &&
-        cubieColors.increaseEdge(cl6[0], cl6[1], cl6[2]) &&
-        cubieColors.increaseCorner(cl7[0], cl7[1], cl7[2]) &&
-        cubieColors.increaseEdge(cl8[0], cl8[1], cl8[2]) &&
-        cubieColors.increaseCorner(cl9[0], cl9[1], cl9[2])
-      ) {
-        cubieColors.doIncreaseCorner(cl1[0], cl1[1], cl1[2]);
-        cubieColors.doIncreaseEdge(cl2[0], cl2[1], cl2[2]);
-        cubieColors.doIncreaseCorner(cl3[0], cl3[1], cl3[2]);
-        cubieColors.doIncreaseEdge(cl4[0], cl4[1], cl4[2]);
-        cubieColors.doIncreaseCenter(cl5[0], cl5[1], cl5[2]);
-        cubieColors.doIncreaseEdge(cl6[0], cl6[1], cl6[2]);
-        cubieColors.doIncreaseCorner(cl7[0], cl7[1], cl7[2]);
-        cubieColors.doIncreaseEdge(cl8[0], cl8[1], cl8[2]);
-        cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2]);
+      if (cl5[0] == 255 && cl5[1] == 255 && cl5[2] == 0) {
+        if (
+          cubieColors.increaseCorner(cl1[0], cl1[1], cl1[2]) &&
+          cubieColors.increaseEdge(cl2[0], cl2[1], cl2[2]) &&
+          cubieColors.increaseCorner(cl3[0], cl3[1], cl3[2]) &&
+          cubieColors.increaseEdge(cl4[0], cl4[1], cl4[2]) &&
+          cubieColors.increaseCenter(cl5[0], cl5[1], cl5[2]) &&
+          cubieColors.increaseEdge(cl6[0], cl6[1], cl6[2]) &&
+          cubieColors.increaseCorner(cl7[0], cl7[1], cl7[2]) &&
+          cubieColors.increaseEdge(cl8[0], cl8[1], cl8[2]) &&
+          cubieColors.increaseCorner(cl9[0], cl9[1], cl9[2])
+        ) {
+          cubieColors.doIncreaseCorner(cl1[0], cl1[1], cl1[2]);
+          cubieColors.doIncreaseEdge(cl2[0], cl2[1], cl2[2]);
+          cubieColors.doIncreaseCorner(cl3[0], cl3[1], cl3[2]);
+          cubieColors.doIncreaseEdge(cl4[0], cl4[1], cl4[2]);
+          cubieColors.doIncreaseCenter(cl5[0], cl5[1], cl5[2]);
+          cubieColors.doIncreaseEdge(cl6[0], cl6[1], cl6[2]);
+          cubieColors.doIncreaseCorner(cl7[0], cl7[1], cl7[2]);
+          cubieColors.doIncreaseEdge(cl8[0], cl8[1], cl8[2]);
+          cubieColors.doIncreaseCorner(cl9[0], cl9[1], cl9[2]);
 
-        bottomColors[0] = [cl1[0], cl1[1], cl1[2]];
-        bottomColors[3] = [cl2[0], cl2[1], cl2[2]];
-        bottomColors[6] = [cl3[0], cl3[1], cl3[2]];
-        bottomColors[1] = [cl4[0], cl4[1], cl4[2]];
-        bottomColors[4] = [cl5[0], cl5[1], cl5[2]];
-        bottomColors[7] = [cl6[0], cl6[1], cl6[2]];
-        bottomColors[2] = [cl7[0], cl7[1], cl7[2]];
-        bottomColors[5] = [cl8[0], cl8[1], cl8[2]];
-        bottomColors[8] = [cl9[0], cl9[1], cl9[2]];
-        saveCube();
+          bottomColors[0] = [cl1[0], cl1[1], cl1[2]];
+          bottomColors[3] = [cl2[0], cl2[1], cl2[2]];
+          bottomColors[6] = [cl3[0], cl3[1], cl3[2]];
+          bottomColors[1] = [cl4[0], cl4[1], cl4[2]];
+          bottomColors[4] = [cl5[0], cl5[1], cl5[2]];
+          bottomColors[7] = [cl6[0], cl6[1], cl6[2]];
+          bottomColors[2] = [cl7[0], cl7[1], cl7[2]];
+          bottomColors[5] = [cl8[0], cl8[1], cl8[2]];
+          bottomColors[8] = [cl9[0], cl9[1], cl9[2]];
+          saveCube();
+        } else {
+          currentFace = currentFace - 1;
+          alert("Cannot save cube, incorrect face!");
+        }
       } else {
-        alert("Cannot save cube, incorresct face!");
+        currentFace = currentFace - 1;
+        alert("Please scan the yellow face!");
       }
     }
     currentFace = currentFace + 1;
+    if (currentFace == 6) {
+      currentFace = 0;
+    }
 
     switch (currentFace) {
       case 1:
@@ -1061,12 +1510,12 @@ function checkColor(r, g, b) {
     hueAngle = hueAngle * 60;
   }
 
-  if (r >= 100 && b >= 100 && g >= 100) {
+  if (r >= 90 && b >= 90 && g >= 90) {
     colorName = "white";
     return "white";
   }
 
-  if (hueAngle >= 0 && hueAngle <= 7) {
+  if (hueAngle >= 0 && hueAngle < 10) {
     colorName = "red";
     return "red";
   }
@@ -1076,7 +1525,7 @@ function checkColor(r, g, b) {
     return "red";
   }
 
-  if (hueAngle >= 7 && hueAngle <= 30) {
+  if (hueAngle >= 10 && hueAngle <= 30) {
     colorName = "orange";
     return "orange";
   }

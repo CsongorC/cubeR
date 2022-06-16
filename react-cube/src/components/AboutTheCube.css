@@ -1,0 +1,87 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+section{
+    height: 92vh;
+    display: flex;
+    color: white;
+    scroll-snap-align: start;
+}
+
+.container{
+    height: 92vh;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+}
+
+.one{
+    background-color: #917164;
+    justify-content: right;
+    align-items: center;
+}
+
+.two{
+    background-color: #ad8174;
+    justify-content: center;
+    align-items: center;
+    padding-left: 50px;
+}
+
+.three{
+    background-color: #917164;
+    justify-content: center;
+    align-items: center;
+    padding-right: 3vw;
+}
+
+.text-rubik-cube {
+    width: 50vw;
+    height: 80vh;
+    font-size: 1.3vw;
+    padding-left: 5vw;
+}
+
+.text-rubik-cube-notations {
+    width: 50vw;
+    height: 80vh;
+    padding-right: 10vw;
+    font-size: 1.2vw;
+    padding-left: 5vw;
+}
+
+.rubik-cube-notations{
+    width: 50vw;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.rubik-erno-photo{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    width: 20vw;
+    height: 80vh;
+}
+
+
+.rubik-cube-photo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30vw;
+    height: 80vh;
+}
+
+.cube-faces-photo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30vw;
+    height: 80vh;
+}

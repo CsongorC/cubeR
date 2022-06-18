@@ -21,7 +21,7 @@ let highlighterPositions = [
   [1950, 475],
 ];
 
-let faceOrder = "Top face";
+let faceOrder = "U";
 
 let cubies = [];
 let colorChoosers = [];
@@ -100,15 +100,18 @@ export function setup() {
 
   buttonSaveFace = p.createButton("SAVE");
   buttonSaveFace.mousePressed(saveColors);
-  buttonSaveFace.position(1280, 670);
+  buttonSaveFace.size(100, 35);
+  buttonSaveFace.position(1250, 670);
 
   buttonClear = p.createButton("CLEAR");
   buttonClear.mousePressed(clearCube);
-  buttonClear.position(1965, 670);
+  buttonClear.size(100, 35);
+  buttonClear.position(1940, 670);
 
   buttonClear = p.createButton("CLEAR LAST");
   buttonClear.mousePressed(clearLastFace);
-  buttonClear.position(1948, 270);
+  buttonClear.size(100, 35);
+  buttonClear.position(1940, 250);
 
   topColors = [
     [255, 255, 255],
@@ -181,6 +184,140 @@ export function setup() {
     [255, 255, 255],
     [255, 255, 255],
   ];
+
+  // top face
+  let r1 = new cubie(1950, 250, topColors[0], "top", 0);
+  cubies.push(r1);
+  r1 = new cubie(1975, 250, topColors[1], "top", 3);
+  cubies.push(r1);
+  r1 = new cubie(2000, 250, topColors[2], "top", 6);
+  cubies.push(r1);
+  r1 = new cubie(1950, 275, topColors[3], "top", 1);
+  cubies.push(r1);
+  r1 = new cubie(1975, 275, topColors[4], "top", 4);
+  cubies.push(r1);
+  r1 = new cubie(2000, 275, topColors[5], "top", 7);
+  cubies.push(r1);
+  r1 = new cubie(1950, 300, topColors[6], "top", 2);
+  cubies.push(r1);
+  r1 = new cubie(1975, 300, topColors[7], "top", 5);
+  cubies.push(r1);
+  r1 = new cubie(2000, 300, topColors[8], "top", 8);
+  cubies.push(r1);
+
+  // left face
+  r1 = new cubie(1875, 325, leftColors[0], "left", 0);
+  cubies.push(r1);
+  r1 = new cubie(1900, 325, leftColors[1], "left", 3);
+  cubies.push(r1);
+  r1 = new cubie(1925, 325, leftColors[2], "left", 6);
+  cubies.push(r1);
+  r1 = new cubie(1875, 350, leftColors[3], "left", 1);
+  cubies.push(r1);
+  r1 = new cubie(1900, 350, leftColors[4], "left", 4);
+  cubies.push(r1);
+  r1 = new cubie(1925, 350, leftColors[5], "left", 7);
+  cubies.push(r1);
+  r1 = new cubie(1875, 375, leftColors[6], "left", 2);
+  cubies.push(r1);
+  r1 = new cubie(1900, 375, leftColors[7], "left", 5);
+  cubies.push(r1);
+  r1 = new cubie(1925, 375, leftColors[8], "left", 8);
+  cubies.push(r1);
+
+  // front face
+  r1 = new cubie(1950, 325, frontColors[0], "front", 0);
+  cubies.push(r1);
+  r1 = new cubie(1975, 325, frontColors[1], "front", 3);
+  cubies.push(r1);
+  r1 = new cubie(2000, 325, frontColors[2], "front", 6);
+  cubies.push(r1);
+  r1 = new cubie(1950, 350, frontColors[3], "front", 1);
+  cubies.push(r1);
+  r1 = new cubie(1975, 350, frontColors[4], "front", 4);
+  cubies.push(r1);
+  r1 = new cubie(2000, 350, frontColors[5], "front", 7);
+  cubies.push(r1);
+  r1 = new cubie(1950, 375, frontColors[6], "front", 2);
+  cubies.push(r1);
+  r1 = new cubie(1975, 375, frontColors[7], "front", 5);
+  cubies.push(r1);
+  r1 = new cubie(2000, 375, frontColors[8], "front", 8);
+  cubies.push(r1);
+
+  // right face
+  r1 = new cubie(2025, 325, rightColors[0], "right", 0);
+  cubies.push(r1);
+  r1 = new cubie(2050, 325, rightColors[1], "right", 3);
+  cubies.push(r1);
+  r1 = new cubie(2075, 325, rightColors[2], "right", 6);
+  cubies.push(r1);
+  r1 = new cubie(2025, 350, rightColors[3], "right", 1);
+  cubies.push(r1);
+  r1 = new cubie(2050, 350, rightColors[4], "right", 4);
+  cubies.push(r1);
+  r1 = new cubie(2075, 350, rightColors[5], "right", 7);
+  cubies.push(r1);
+  r1 = new cubie(2025, 375, rightColors[6], "right", 2);
+  cubies.push(r1);
+  r1 = new cubie(2050, 375, rightColors[7], "right", 5);
+  cubies.push(r1);
+  r1 = new cubie(2075, 375, rightColors[8], "right", 8);
+  cubies.push(r1);
+
+  // bottom face
+  r1 = new cubie(1950, 400, bottomColors[0], "bottom", 0);
+  cubies.push(r1);
+  r1 = new cubie(1975, 400, bottomColors[1], "bottom", 3);
+  cubies.push(r1);
+  r1 = new cubie(2000, 400, bottomColors[2], "bottom", 6);
+  cubies.push(r1);
+  r1 = new cubie(1950, 425, bottomColors[3], "bottom", 1);
+  cubies.push(r1);
+  r1 = new cubie(1975, 425, bottomColors[4], "bottom", 4);
+  cubies.push(r1);
+  r1 = new cubie(2000, 425, bottomColors[5], "bottom", 7);
+  cubies.push(r1);
+  r1 = new cubie(1950, 450, bottomColors[6], "bottom", 2);
+  cubies.push(r1);
+  r1 = new cubie(1975, 450, bottomColors[7], "bottom", 5);
+  cubies.push(r1);
+  r1 = new cubie(2000, 450, bottomColors[8], "bottom", 8);
+  cubies.push(r1);
+
+  // posterior face
+  r1 = new cubie(2000, 525, posteriorColors[0], "posterior", 8);
+  cubies.push(r1);
+  r1 = new cubie(2000, 500, posteriorColors[1], "posterior", 7);
+  cubies.push(r1);
+  r1 = new cubie(2000, 475, posteriorColors[2], "posterior", 6);
+  cubies.push(r1);
+  r1 = new cubie(1975, 525, posteriorColors[3], "posterior", 5);
+  cubies.push(r1);
+  r1 = new cubie(1975, 500, posteriorColors[4], "posterior", 4);
+  cubies.push(r1);
+  r1 = new cubie(1975, 475, posteriorColors[5], "posterior", 3);
+  cubies.push(r1);
+  r1 = new cubie(1950, 525, posteriorColors[6], "posterior", 2);
+  cubies.push(r1);
+  r1 = new cubie(1950, 500, posteriorColors[7], "posterior", 1);
+  cubies.push(r1);
+  r1 = new cubie(1950, 475, posteriorColors[8], "posterior", 0);
+  cubies.push(r1);
+
+  // color picker
+  let c1 = new colorChooser(2100, 650, [255, 255, 255]);
+  colorChoosers.push(c1);
+  c1 = new colorChooser(2050, 650, [0, 0, 255]);
+  colorChoosers.push(c1);
+  c1 = new colorChooser(2000, 650, [255, 0, 0]);
+  colorChoosers.push(c1);
+  c1 = new colorChooser(1950, 650, [0, 255, 0]);
+  colorChoosers.push(c1);
+  c1 = new colorChooser(1900, 650, [255, 140, 0]);
+  colorChoosers.push(c1);
+  c1 = new colorChooser(1850, 650, [255, 255, 0]);
+  colorChoosers.push(c1);
 }
 
 function clearLastFace() {
@@ -558,6 +695,68 @@ function clearLastFace() {
   }
 }
 
+function updateCubieColors(){
+  let it = 0;
+  let colorIt = 0;
+  for(let i = 0; i < cubies.length; i ++){
+    if(it >= 0 && it <= 8){
+      cubies[i].updateColor(topColors[colorIt]);
+      if(colorIt == 8){
+        colorIt = 0;
+      }
+      else{
+        colorIt += 1;
+      }
+    }
+    if(it >= 9 && it <= 17){
+      cubies[i].updateColor(leftColors[colorIt]);
+      if(colorIt == 8){
+        colorIt = 0;
+      }
+      else{
+        colorIt += 1;
+      }
+    }
+    if(it >= 18 && it <= 26){
+      cubies[i].updateColor(frontColors[colorIt]);
+      if(colorIt == 8){
+        colorIt = 0;
+      }
+      else{
+        colorIt += 1;
+      }
+    }
+    if(it >= 27 && it <= 35){
+      cubies[i].updateColor(rightColors[colorIt]);
+      if(colorIt == 8){
+        colorIt = 0;
+      }
+      else{
+        colorIt += 1;
+      }
+    }
+    if(it >= 36 && it <= 44){
+      cubies[i].updateColor(bottomColors[colorIt]);
+      if(colorIt == 8){
+        colorIt = 0;
+      }
+      else{
+        colorIt += 1;
+      }
+    }
+    if(it >= 45 && it <= 53){
+      cubies[i].updateColor(posteriorColors[colorIt]);
+      if(colorIt == 8){
+        colorIt = 0;
+      }
+      else{
+        colorIt += 1;
+      }
+    }
+    it += 1;
+  }
+}
+
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -605,7 +804,7 @@ function clearCube() {
     [255, 255, 255],
     [255, 255, 255],
     [255, 255, 255],
-    [255, 255, 255],
+    [255, 255, 0],
     [255, 255, 255],
     [255, 255, 255],
     [255, 255, 255],
@@ -617,7 +816,7 @@ function clearCube() {
     [255, 255, 255],
     [255, 255, 255],
     [255, 255, 255],
-    [255, 255, 255],
+    [255, 0, 0],
     [255, 255, 255],
     [255, 255, 255],
     [255, 255, 255],
@@ -629,7 +828,7 @@ function clearCube() {
     [255, 255, 255],
     [255, 255, 255],
     [255, 255, 255],
-    [255, 255, 255],
+    [255, 140, 0],
     [255, 255, 255],
     [255, 255, 255],
     [255, 255, 255],
@@ -641,7 +840,7 @@ function clearCube() {
     [255, 255, 255],
     [255, 255, 255],
     [255, 255, 255],
-    [255, 255, 255],
+    [0, 255, 0],
     [255, 255, 255],
     [255, 255, 255],
     [255, 255, 255],
@@ -653,7 +852,7 @@ function clearCube() {
     [255, 255, 255],
     [255, 255, 255],
     [255, 255, 255],
-    [255, 255, 255],
+    [0, 0, 255],
     [255, 255, 255],
     [255, 255, 255],
     [255, 255, 255],
@@ -661,7 +860,7 @@ function clearCube() {
   ];
 
   currentFace = 0;
-  faceOrder = "Top face";
+  faceOrder = "U";
 }
 
 function colorToLetterConverter(arrayColor) {
@@ -1011,27 +1210,27 @@ function saveColors() {
 
     switch (currentFace) {
       case 1:
-        faceOrder = "Front face";
+        faceOrder = "F";
         highlighterX = highlighterPositions[2][0];
         highlighterY = highlighterPositions[2][1];
         break;
       case 2:
-        faceOrder = "Left face";
+        faceOrder = "L";
         highlighterX = highlighterPositions[1][0];
         highlighterY = highlighterPositions[1][1];
         break;
       case 3:
-        faceOrder = "Right face";
+        faceOrder = "R";
         highlighterX = highlighterPositions[3][0];
         highlighterY = highlighterPositions[3][1];
         break;
       case 4:
-        faceOrder = "Posterior face";
+        faceOrder = "B";
         highlighterX = highlighterPositions[5][0];
         highlighterY = highlighterPositions[5][1];
         break;
       case 5:
-        faceOrder = "Bottom face";
+        faceOrder = "D";
         highlighterX = highlighterPositions[4][0];
         highlighterY = highlighterPositions[4][1];
         break;
@@ -1077,7 +1276,7 @@ export function draw() {
 
   p.textSize(32);
   p.fill(255, 255, 255);
-  p.text("Scan your cube here", 350, 170);
+  p.text("Webcam scanner", 360, 170);
 
   first = p.get(350, 250);
   cl1 = colorNameToRgb(checkColor(first[0], first[1], first[2]));
@@ -1126,9 +1325,9 @@ export function draw() {
 
   p.textSize(25);
   p.fill(255, 255, 255);
-  p.text("Currently scanning:", 1150, 230);
+  p.text("Currently scanning face:", 1150, 230);
 
-  p.text(faceOrder, 1370, 230);
+  p.text(faceOrder, 1430, 230);
 
   // current scanning cube face
   p.fill(cl1[0], cl1[1], cl1[2]);
@@ -1151,145 +1350,10 @@ export function draw() {
   p.fill(cl9[0], cl9[1], cl9[2]);
   p.rect(1350, 450, 100, 100);
 
-  // the whole cube
-
-  // top face
-  let r1 = new cubie(1950, 250, topColors[0], "top", 0);
-  cubies.push(r1);
-  r1 = new cubie(1950, 275, topColors[3], "top", 1);
-  cubies.push(r1);
-  r1 = new cubie(1950, 300, topColors[6], "top", 2);
-  cubies.push(r1);
-  r1 = new cubie(1975, 250, topColors[1], "top", 3);
-  cubies.push(r1);
-  r1 = new cubie(1975, 275, topColors[4], "top", 4);
-  cubies.push(r1);
-  r1 = new cubie(1975, 300, topColors[7], "top", 5);
-  cubies.push(r1);
-  r1 = new cubie(2000, 250, topColors[2], "top", 6);
-  cubies.push(r1);
-  r1 = new cubie(2000, 275, topColors[5], "top", 7);
-  cubies.push(r1);
-  r1 = new cubie(2000, 300, topColors[8], "top", 8);
-  cubies.push(r1);
-
-  // left face
-  r1 = new cubie(1875, 325, leftColors[0], "left", 0);
-  cubies.push(r1);
-  r1 = new cubie(1875, 350, leftColors[3], "left", 1);
-  cubies.push(r1);
-  r1 = new cubie(1875, 375, leftColors[6], "left", 2);
-  cubies.push(r1);
-  r1 = new cubie(1900, 325, leftColors[1], "left", 3);
-  cubies.push(r1);
-  r1 = new cubie(1900, 350, leftColors[4], "left", 4);
-  cubies.push(r1);
-  r1 = new cubie(1900, 375, leftColors[7], "left", 5);
-  cubies.push(r1);
-  r1 = new cubie(1925, 325, leftColors[2], "left", 6);
-  cubies.push(r1);
-  r1 = new cubie(1925, 350, leftColors[5], "left", 7);
-  cubies.push(r1);
-  r1 = new cubie(1925, 375, leftColors[8], "left", 8);
-  cubies.push(r1);
-
-  // front face
-  r1 = new cubie(1950, 325, frontColors[0], "front", 0);
-  cubies.push(r1);
-  r1 = new cubie(1950, 350, frontColors[3], "front", 1);
-  cubies.push(r1);
-  r1 = new cubie(1950, 375, frontColors[6], "front", 2);
-  cubies.push(r1);
-  r1 = new cubie(1975, 325, frontColors[1], "front", 3);
-  cubies.push(r1);
-  r1 = new cubie(1975, 350, frontColors[4], "front", 4);
-  cubies.push(r1);
-  r1 = new cubie(1975, 375, frontColors[7], "front", 5);
-  cubies.push(r1);
-  r1 = new cubie(2000, 325, frontColors[2], "front", 6);
-  cubies.push(r1);
-  r1 = new cubie(2000, 350, frontColors[5], "front", 7);
-  cubies.push(r1);
-  r1 = new cubie(2000, 375, frontColors[8], "front", 8);
-  cubies.push(r1);
-
-  // right face
-  r1 = new cubie(2025, 325, rightColors[0], "right", 0);
-  cubies.push(r1);
-  r1 = new cubie(2025, 350, rightColors[3], "right", 1);
-  cubies.push(r1);
-  r1 = new cubie(2025, 375, rightColors[6], "right", 2);
-  cubies.push(r1);
-  r1 = new cubie(2050, 325, rightColors[1], "right", 3);
-  cubies.push(r1);
-  r1 = new cubie(2050, 350, rightColors[4], "right", 4);
-  cubies.push(r1);
-  r1 = new cubie(2050, 375, rightColors[7], "right", 5);
-  cubies.push(r1);
-  r1 = new cubie(2075, 325, rightColors[2], "right", 6);
-  cubies.push(r1);
-  r1 = new cubie(2075, 350, rightColors[5], "right", 7);
-  cubies.push(r1);
-  r1 = new cubie(2075, 375, rightColors[8], "right", 8);
-  cubies.push(r1);
-
-  // bottom face
-  r1 = new cubie(1950, 400, bottomColors[0], "bottom", 0);
-  cubies.push(r1);
-  r1 = new cubie(1950, 425, bottomColors[3], "bottom", 1);
-  cubies.push(r1);
-  r1 = new cubie(1950, 450, bottomColors[6], "bottom", 2);
-  cubies.push(r1);
-  r1 = new cubie(1975, 400, bottomColors[1], "bottom", 3);
-  cubies.push(r1);
-  r1 = new cubie(1975, 425, bottomColors[4], "bottom", 4);
-  cubies.push(r1);
-  r1 = new cubie(1975, 450, bottomColors[7], "bottom", 5);
-  cubies.push(r1);
-  r1 = new cubie(2000, 400, bottomColors[2], "bottom", 6);
-  cubies.push(r1);
-  r1 = new cubie(2000, 425, bottomColors[5], "bottom", 7);
-  cubies.push(r1);
-  r1 = new cubie(2000, 450, bottomColors[8], "bottom", 8);
-  cubies.push(r1);
-
-  // posterior face
-  r1 = new cubie(1950, 475, posteriorColors[8], "posterior", 0);
-  cubies.push(r1);
-  r1 = new cubie(1950, 500, posteriorColors[7], "posterior", 1);
-  cubies.push(r1);
-  r1 = new cubie(1950, 525, posteriorColors[6], "posterior", 2);
-  cubies.push(r1);
-  r1 = new cubie(1975, 475, posteriorColors[5], "posterior", 3);
-  cubies.push(r1);
-  r1 = new cubie(1975, 500, posteriorColors[4], "posterior", 4);
-  cubies.push(r1);
-  r1 = new cubie(1975, 525, posteriorColors[3], "posterior", 5);
-  cubies.push(r1);
-  r1 = new cubie(2000, 475, posteriorColors[2], "posterior", 6);
-  cubies.push(r1);
-  r1 = new cubie(2000, 500, posteriorColors[1], "posterior", 7);
-  cubies.push(r1);
-  r1 = new cubie(2000, 525, posteriorColors[0], "posterior", 8);
-  cubies.push(r1);
-
+  updateCubieColors();
   for (let i = 0; i < cubies.length; i++) {
     cubies[i].show();
   }
-
-  // color picker
-  let c1 = new colorChooser(2100, 650, [255, 255, 255]);
-  colorChoosers.push(c1);
-  c1 = new colorChooser(2050, 650, [0, 0, 255]);
-  colorChoosers.push(c1);
-  c1 = new colorChooser(2000, 650, [255, 0, 0]);
-  colorChoosers.push(c1);
-  c1 = new colorChooser(1950, 650, [0, 255, 0]);
-  colorChoosers.push(c1);
-  c1 = new colorChooser(1900, 650, [255, 140, 0]);
-  colorChoosers.push(c1);
-  c1 = new colorChooser(1850, 650, [255, 255, 0]);
-  colorChoosers.push(c1);
 
   for (let i = 0; i < colorChoosers.length; i++) {
     colorChoosers[i].show();

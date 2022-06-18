@@ -14,4 +14,8 @@ export default class cubie{
       p.fill(this.color)
       p.rect(this.x, this.y, 25);
   }
+
+  updateColor(color){
+    this.color = color;
+  }
 }
